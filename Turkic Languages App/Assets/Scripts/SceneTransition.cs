@@ -5,8 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class SceneTransition : MonoBehaviour
 {
-    public void LoadNamedScene(string name)
+
+    public const string RecordingSceneName = "Recording";
+    public const string FormSceneName = "Start";
+    public void LoadRecordingScene()
     {
-        SceneManager.LoadScene(name);
+        SceneManager.LoadScene(RecordingSceneName);
+    }
+    public void LoadFormScene()
+    {
+        SceneManager.LoadScene(FormSceneName);
     }
 }
