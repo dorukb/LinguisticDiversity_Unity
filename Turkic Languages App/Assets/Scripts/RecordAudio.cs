@@ -13,12 +13,12 @@ public class RecordAudio : MonoBehaviour
     public AudioClip Record()
     {
         AudioClip recordedClip = Microphone.Start("", true, 5, 44100);
-        Debug.Log("recording...");
+        //Debug.Log("recording...");
         return recordedClip;
     }
     public void StopRecording()
     {
-        Debug.Log("stopped.");
+        //Debug.Log("stopped.");
         Microphone.End("");
     }
     public void PlayRecording(AudioClip recording)

@@ -11,59 +11,64 @@ public class AppManager : MonoBehaviour
     [Header("UI References")]
     public GameObject recordingVisual;
     public Image imageShown;
-    public GameObject keepButton;
+    //public GameObject keepButton;
     public GameObject discardButton;
     public TextMeshProUGUI statusText;
+    public TextMeshProUGUI recordingNameText;
+    public TextMeshProUGUI imageLabelText;
 
-
-
-    private int imageIndex;
-    private AudioClip currentRecording;
     private RecordAudio recorder;
-    public List<AudioClip> savedRecordings;
+    private int imageIndex;
+    private string currentRecordingId = "";
+    private AudioClip currentRecording;
+    public Dictionary<string, AudioClip> savedRecordings;
     private void Start()
     {
         recorder = FindObjectOfType<RecordAudio>();
-        savedRecordings = new List<AudioClip>();
-        currentRecording = null;
+        savedRecordings = new Dictionary<string, AudioClip>();
+        //currentRecordingData = null;
         recordingVisual.SetActive(false);
 
         statusText.text = "Hold to start Recording.";
         imageIndex = 0;
         imageShown.sprite = sprites[imageIndex];
+        imageLabelText.text = sprites[imageIndex].name;
     }
 
     public void StartRecording()
     {
+        if (savedRecordings.ContainsKey(currentRecordingId))
+        {
+            savedRecordings.Remove(currentRecordingId);
+        }
         currentRecording = recorder.Record();
+        currentRecordingId = sprites[imageIndex].name;
+
         recordingVisual.SetActive(false);
         statusText.text = "Recording...";
     }
     public void StopRecording()
     {
-        statusText.text = "Finished.";
+        if (currentRecording == null) return;
 
+        statusText.text = "Finished.";
         recorder.StopRecording();
-        keepButton.SetActive(true);
+        //keepButton.SetActive(true);
         discardButton.SetActive(true);
         recordingVisual.SetActive(true);
-    }
-    public void AcceptRecording()
-    {
-        if (currentRecording == null) return;
-        currentRecording.name = sprites[imageIndex].name;
-        savedRecordings.Add(currentRecording);
-        discardButton.SetActive(false);
 
-        //visually show the accepted state.
-        //give option for re-recording.
-
+        recordingNameText.text = currentRecordingId;
+        currentRecording.name = currentRecordingId;
+        savedRecordings.Add(currentRecordingId, currentRecording);
     }
+
     public void DiscardRecording()
     {
-        //currentRecording.GetData();
+        savedRecordings.Remove(currentRecordingId);
         currentRecording = null;
-        statusText.text = "Discarded. Record Again.";
+        currentRecordingId = "";
+
+        statusText.text = "Discarded. Hold to Record Again.";
         recordingVisual.SetActive(false);
     }
     public void PlayCurrentRecording()
@@ -74,9 +79,32 @@ public class AppManager : MonoBehaviour
     public void NextImage()
     {
         imageIndex++;
-        imageShown.sprite = sprites[imageIndex];
+        if(imageIndex >= sprites.Count)
+        {
+            //we are done, send all recorded audio to data manager for saving.
+            foreach(var recordingPair in savedRecordings)
+            {
+                string recordingId = recordingPair.Key;
+                AudioClip recording = recordingPair.Value;
+                DataManager.Instance.AddRecordingData(recordingId, recording);
+            }
+            DataManager.Instance.Save();
+        }
+        else
+        {
+            imageShown.sprite = sprites[imageIndex];
+            imageLabelText.text = sprites[imageIndex].name;
+            // current recording will be reset here. make sure its stored somewhere before this point.
 
-        // current recording will be reset here. make sure its stored somewhere before this point.
-        currentRecording = null;
+            //reset recording visuals and state, except savedRecording, we keep them ofc.
+            currentRecording = null;
+            currentRecordingId = "";
+
+            recordingVisual.SetActive(false);
+            statusText.text = "Hold to start Recording.";
+        }
+       
     }
+
+
 }
