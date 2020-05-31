@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
 public class DataManager : MonoBehaviour
@@ -63,7 +66,55 @@ public class DataManager : MonoBehaviour
         {
             Debug.LogFormat("Title: {0}, sampleSize:{1}", recData.title, recData.audioData.Length);
         }
+        StartCoroutine(UploadMultipleFiles());
     }
+
+    IEnumerator UploadMultipleFiles()
+    {
+        //string[] path = new string[3];
+        //path[0] = "D:/File1.txt";
+        //UnityWebRequest[] files = new UnityWebRequest[path.Length];
+        WWWForm form = new WWWForm();
+
+        foreach (var recData in saveData.recordingData)
+        {
+            byte[] audioBytes = ToByteArray(recData.audioData);
+            form.AddBinaryData("files[]", audioBytes, recData.title);
+        }
+
+        UnityWebRequest req = UnityWebRequest.Post("http://localhost/File%20Upload/Uploader.php", form);
+        yield return req.SendWebRequest();
+
+        if (req.isHttpError || req.isNetworkError)
+            Debug.Log(req.error);
+        else
+            Debug.Log("Uploaded " + saveData.recordingData.Count + " audio files Successfully");
+    }
+    public byte[] ToByteArray(float[] floatArray)
+    {
+        int len = floatArray.Length * 4;
+        byte[] byteArray = new byte[len];
+        int pos = 0;
+        foreach (float f in floatArray)
+        {
+            byte[] data = System.BitConverter.GetBytes(f);
+            System.Array.Copy(data, 0, byteArray, pos, 4);
+            pos += 4;
+        }
+        return byteArray;
+    }
+
+    //public float[] ToFloatArray(byte[] byteArray)
+    //{
+    //    int len = byteArray.Length / 4;
+    //    float[] floatArray = new float[len];
+    //    for (int i = 0; i < byteArray.Length; i += 4)
+    //    {
+    //        floatArray[i / 4] = System.BitConverter.ToSingle(byteArray, i);
+    //    }
+    //    return floatArray;
+    //}
+
 }
 
 
