@@ -82,13 +82,21 @@ public class DataManager : MonoBehaviour
             form.AddBinaryData("files[]", audioBytes, recData.title);
         }
 
-        UnityWebRequest req = UnityWebRequest.Post("http://localhost/File%20Upload/Uploader.php", form);
+        UnityWebRequest req = UnityWebRequest.Post("http://localhost/turkicLanguages/test.php", form);
+        
         yield return req.SendWebRequest();
 
+ 
         if (req.isHttpError || req.isNetworkError)
             Debug.Log(req.error);
         else
             Debug.Log("Uploaded " + saveData.recordingData.Count + " audio files Successfully");
+
+        if (req.isDone)
+        {
+            Debug.Log("req is done");
+
+        }
     }
     public byte[] ToByteArray(float[] floatArray)
     {
