@@ -61,7 +61,7 @@ public class DataManager : MonoBehaviour
     {
         //write to file.
         Debug.Log("Saved to file, also will send to web backend");
-        saveData.formData.Print();
+        if(saveData.formData !=null) saveData.formData.Print();
         foreach (var recData in saveData.recordingData)
         {
             Debug.LogFormat("Title: {0}, sampleSize:{1}", recData.title, recData.audioData.Length);
@@ -82,7 +82,7 @@ public class DataManager : MonoBehaviour
             form.AddBinaryData("files[]", audioBytes, recData.title);
         }
 
-        UnityWebRequest req = UnityWebRequest.Post("http://localhost/turkicLanguages/test.php", form);
+        UnityWebRequest req = UnityWebRequest.Post("http://localhost/turkicLanguages/upload.php", form);
         
         yield return req.SendWebRequest();
 
