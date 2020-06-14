@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -8,7 +9,7 @@ using UnityEngine.SceneManagement;
 public class DataManager : MonoBehaviour
 {
     public static DataManager Instance;
-
+    public string sessionId;
     public SaveData saveData = new SaveData();
     #region SingletonAndDontDestroyBehaviour
     void Awake()
@@ -35,52 +36,71 @@ public class DataManager : MonoBehaviour
 
     }
     #endregion
+
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         //Load() from file prev recordings?.
         saveData.recordingData = new List<RecordingData>();
     }
-
+    public void RestoreRecordingsFromPreviousSession(string sessionId)
+    {
+        //string sessionDirectory = Path.Combine(Application.persistentDataPath, sessionId);
+        //string[] recordingPaths = Directory.GetFiles(sessionDirectory);
+    }
     public void SaveFormData(FormData data)
     {
         saveData.formData = data;
-        //saveData.recordingData = new List<RecordingData>();
-        Debug.Log("save form data.");
-        Debug.Log(data);
-        //Save(); write to file
+        Debug.Log("saving form data.");
+
+        string sessionFolder = Path.Combine(Application.persistentDataPath, sessionId);
+        string filePath= Path.Combine(sessionFolder, "form.json");
+        File.WriteAllText(filePath, JsonUtility.ToJson(data));
     }
     public void AddRecordingData(string id, AudioClip clip)
     {
         float[] samples = new float[clip.samples * clip.channels];
         clip.GetData(samples, 0);
         saveData.recordingData.Add(new RecordingData(id, samples));
-        //Save(); write to file
+
+        //Debug.Log("Saving to disk in .wav format.");
+
+        string sessionFolder = Path.Combine(Application.persistentDataPath, sessionId);
+        string filePath = Path.Combine(sessionFolder, id);
+        Debug.Log("saving audio to: " + filePath);
+        SavWav.Save(filePath, clip);
     }
 
-    public void Save()
+    public void SendDataToServer(Action endCallback = null)
     {
-        //write to file.
-        Debug.Log("Saved to file, also will send to web backend");
-        if(saveData.formData !=null) saveData.formData.Print();
-        foreach (var recData in saveData.recordingData)
-        {
-            Debug.LogFormat("Title: {0}, sampleSize:{1}", recData.title, recData.audioData.Length);
-        }
-        StartCoroutine(UploadMultipleFiles());
+        Debug.Log("will send previously saved data to web backend");
+        StartCoroutine(UploadMultipleFiles(endCallback));
     }
 
-    IEnumerator UploadMultipleFiles()
+    IEnumerator UploadMultipleFiles(Action endCallback)
     {
-        //string[] path = new string[3];
-        //path[0] = "D:/File1.txt";
-        //UnityWebRequest[] files = new UnityWebRequest[path.Length];
         WWWForm form = new WWWForm();
 
-        foreach (var recData in saveData.recordingData)
+
+        string sessionDirectory = Path.Combine(Application.persistentDataPath, sessionId);
+        string[] recordingPaths = Directory.GetFiles(sessionDirectory);
+
+        form.AddField("id", sessionId);
+        foreach(string filePath in recordingPaths)
         {
-            byte[] audioBytes = ToByteArray(recData.audioData);
-            form.AddBinaryData("files[]", audioBytes, recData.title);
+            File.OpenRead(filePath);
+            byte[] bytes = File.ReadAllBytes(filePath);
+
+            string fileName = Path.GetFileName(filePath);
+            //fileName.Replace(".wav", "");
+            form.AddBinaryData("files[]", bytes, fileName);
+       
+
         }
+        //foreach (var recData in saveData.recordingData)
+        //{
+        //    byte[] audioBytes = ToByteArray(recData.audioData);
+        //    form.AddBinaryData("files[]", audioBytes, recData.title);
+        //}
 
         UnityWebRequest req = UnityWebRequest.Post("http://localhost/turkicLanguages/upload.php", form);
         
@@ -90,13 +110,14 @@ public class DataManager : MonoBehaviour
         if (req.isHttpError || req.isNetworkError)
             Debug.Log(req.error);
         else
-            Debug.Log("Uploaded " + saveData.recordingData.Count + " audio files Successfully");
+            Debug.Log("Uploaded " + recordingPaths.Length + " audio files Successfully");
 
         if (req.isDone)
         {
             Debug.Log("req is done");
 
         }
+        endCallback?.Invoke();
     }
     public byte[] ToByteArray(float[] floatArray)
     {

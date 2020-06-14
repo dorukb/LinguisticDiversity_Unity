@@ -15,7 +15,11 @@ public class AppManager : MonoBehaviour
     public GameObject discardButton;
     public TextMeshProUGUI statusText;
     public TextMeshProUGUI recordingNameText;
-    public TextMeshProUGUI imageLabelText;
+    //public TextMeshProUGUI imageLabelText;
+    public TextMeshProUGUI recordingCounterText;
+
+    public GameObject recordingPanel;
+    public GameObject endPanel;
 
     private RecordAudio recorder;
     private int imageIndex;
@@ -32,7 +36,8 @@ public class AppManager : MonoBehaviour
         statusText.text = "Hold to start Recording.";
         imageIndex = 0;
         imageShown.sprite = sprites[imageIndex];
-        imageLabelText.text = sprites[imageIndex].name;
+        //imageLabelText.text = sprites[imageIndex].name;
+        recordingCounterText.text = (imageIndex + 1).ToString() + " / " + sprites.Count;
     }
 
     public void StartRecording()
@@ -79,21 +84,18 @@ public class AppManager : MonoBehaviour
     public void NextImage()
     {
         imageIndex++;
-        if(imageIndex >= sprites.Count)
+
+        //update counter
+        recordingCounterText.text = (imageIndex + 1).ToString() + " / " + sprites.Count;
+        if (imageIndex >= sprites.Count)
         {
-            //we are done, send all recorded audio to data manager for saving.
-            foreach(var recordingPair in savedRecordings)
-            {
-                string recordingId = recordingPair.Key;
-                AudioClip recording = recordingPair.Value;
-                DataManager.Instance.AddRecordingData(recordingId, recording);
-            }
-            DataManager.Instance.Save();
+            FinishRecordingPhase();
+            //DataManager.Instance.SendDataToServer();
         }
         else
         {
             imageShown.sprite = sprites[imageIndex];
-            imageLabelText.text = sprites[imageIndex].name;
+            //imageLabelText.text = sprites[imageIndex].name;
             // current recording will be reset here. make sure its stored somewhere before this point.
 
             //reset recording visuals and state, except savedRecording, we keep them ofc.
@@ -104,6 +106,28 @@ public class AppManager : MonoBehaviour
             statusText.text = "Hold to start Recording.";
         }
        
+    }
+
+    public void FinishRecordingPhase()
+    {
+        recordingPanel.SetActive(false);
+        endPanel.SetActive(true);
+        //we are done, send all recorded audio to data manager for saving.
+        foreach (var recordingPair in savedRecordings)
+        {
+            string recordingId = recordingPair.Key;
+            AudioClip recording = recordingPair.Value;
+            DataManager.Instance.AddRecordingData(recordingId, recording);
+        }
+    }
+    public void SubmitRecordings()
+    {
+        DataManager.Instance.SendDataToServer(() =>
+        {
+            // when we are done. maybe also do loading animation?
+            FindObjectOfType<SceneTransition>().LoadMenuScene();
+        }
+        );
     }
 
 

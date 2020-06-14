@@ -19,7 +19,6 @@ public class FormManager : MonoBehaviour
     //prob read from a file since this is LONG.
     private string[] nativeLanguages = new string[]
     {
-        "All the others",
         "Turkish",
         "German",
         "Azeri",
@@ -53,24 +52,20 @@ public class FormManager : MonoBehaviour
 
     public void OnAgeChange(string value)
     {
-        Debug.Log("Age: " + value);
         int parsedInt = -1;
         int.TryParse(value, out parsedInt);
         localFormData.age = parsedInt;
     }
     public void OnNativeLanguageChange(int value)
     {
-        Debug.Log(nativeLangDropdown.captionText.text);
         localFormData.nativeLanguage = nativeLangDropdown.captionText.text;
     }
     public void OnContributionLanguageChange(int value)
     {
-        Debug.Log(contributionLangDropdown.captionText.text);
         localFormData.contributionLanguage = contributionLangDropdown.captionText.text;
     }
     public void OnProficiencyChange(int value)
     {
-        Debug.Log(profDropdown.captionText.text);
         localFormData.proficiencyLevel = value;
     }
     public void OnGenderChange(Int32 value)
@@ -87,7 +82,6 @@ public class FormManager : MonoBehaviour
                 localFormData.gender = "NONE";
                 break;
         }
-        Debug.Log("gender value: " + value);
     }
 
 
@@ -119,7 +113,7 @@ public class FormManager : MonoBehaviour
     public void OnSubmitButton()
     {
         DataManager.Instance.SaveFormData(localFormData);
-        FindObjectOfType<SceneTransition>().LoadRecordingScene();
+        FindObjectOfType<SceneTransition>().LoadMenuScene();
     }
 
 }
