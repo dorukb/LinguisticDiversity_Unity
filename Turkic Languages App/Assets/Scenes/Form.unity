@@ -1849,7 +1849,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BackGroundColor: {r: 0.89199895, g: 0.8962264, b: 0.8962264, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -2264,7 +2264,7 @@ GameObject:
   - component: {fileID: 692445188}
   - component: {fileID: 692445187}
   m_Layer: 5
-  m_Name: Main Canvas
+  m_Name: Mobile UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

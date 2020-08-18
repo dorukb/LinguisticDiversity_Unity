@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,11 +10,9 @@ public class AppManager : MonoBehaviour
     [Header("UI References")]
     public GameObject recordingVisual;
     public Image imageShown;
-    //public GameObject keepButton;
     public GameObject discardButton;
     public TextMeshProUGUI statusText;
     public TextMeshProUGUI recordingNameText;
-    //public TextMeshProUGUI imageLabelText;
     public TextMeshProUGUI recordingCounterText;
 
     public GameObject recordingPanel;
@@ -30,13 +27,11 @@ public class AppManager : MonoBehaviour
     {
         recorder = FindObjectOfType<RecordAudio>();
         savedRecordings = new Dictionary<string, AudioClip>();
-        //currentRecordingData = null;
         recordingVisual.SetActive(false);
 
         statusText.text = "Hold to start Recording.";
         imageIndex = 0;
         imageShown.sprite = sprites[imageIndex];
-        //imageLabelText.text = sprites[imageIndex].name;
         recordingCounterText.text = (imageIndex + 1).ToString() + " / " + sprites.Count;
     }
 
@@ -58,7 +53,7 @@ public class AppManager : MonoBehaviour
 
         statusText.text = "Finished.";
         recorder.StopRecording();
-        //keepButton.SetActive(true);
+
         discardButton.SetActive(true);
         recordingVisual.SetActive(true);
 
@@ -84,9 +79,8 @@ public class AppManager : MonoBehaviour
     public void NextImage()
     {
         imageIndex++;
-
-        //update counter
         recordingCounterText.text = (imageIndex + 1).ToString() + " / " + sprites.Count;
+
         if (imageIndex >= sprites.Count)
         {
             FinishRecordingPhase();
@@ -95,9 +89,8 @@ public class AppManager : MonoBehaviour
         else
         {
             imageShown.sprite = sprites[imageIndex];
-            //imageLabelText.text = sprites[imageIndex].name;
-            // current recording will be reset here. make sure its stored somewhere before this point.
 
+            // current recording will be reset here. make sure its stored somewhere before this point.
             //reset recording visuals and state, except savedRecording, we keep them ofc.
             currentRecording = null;
             currentRecordingId = "";
@@ -120,13 +113,16 @@ public class AppManager : MonoBehaviour
             DataManager.Instance.AddRecordingData(recordingId, recording);
         }
     }
+
+    // Called by the submit button
     public void SubmitRecordings()
     {
         DataManager.Instance.SendDataToServer(() =>
         {
-            // when we are done. maybe also do loading animation?
+            // TODO: show success message/screen then redirect to menu scene.
             FindObjectOfType<SceneTransition>().LoadMenuScene();
         }
+        // TODO: Also handle failed case and give option to retry.
         );
     }
 

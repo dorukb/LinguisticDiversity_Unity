@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class RecordAudio : MonoBehaviour
 {
@@ -13,12 +11,10 @@ public class RecordAudio : MonoBehaviour
     public AudioClip Record()
     {
         AudioClip recordedClip = Microphone.Start("", false, 15, 44100);
-        //Debug.Log("recording...");
         return recordedClip;
     }
     public void StopRecording()
     {
-        //Debug.Log("stopped.");
         Invoke("StopDelayed", 1f);
     }
 

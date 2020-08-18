@@ -60,10 +60,10 @@ public class DataManager : MonoBehaviour
     {
         float[] samples = new float[clip.samples * clip.channels];
         clip.GetData(samples, 0);
-        saveData.recordingData.Add(new RecordingData(id, samples));
+
+        //saveData.recordingData.Add(new RecordingData(id, samples));
 
         //Debug.Log("Saving to disk in .wav format.");
-
         string sessionFolder = Path.Combine(Application.persistentDataPath, sessionId);
         string filePath = Path.Combine(sessionFolder, id);
         Debug.Log("saving audio to: " + filePath);
@@ -79,9 +79,9 @@ public class DataManager : MonoBehaviour
     IEnumerator UploadMultipleFiles(Action endCallback)
     {
         WWWForm form = new WWWForm();
-
-
         string sessionDirectory = Path.Combine(Application.persistentDataPath, sessionId);
+
+        // Does not use any save file, directly get all audio files associated with this session.
         string[] recordingPaths = Directory.GetFiles(sessionDirectory);
 
         form.AddField("id", sessionId);
@@ -93,20 +93,11 @@ public class DataManager : MonoBehaviour
             string fileName = Path.GetFileName(filePath);
             //fileName.Replace(".wav", "");
             form.AddBinaryData("files[]", bytes, fileName);
-       
-
         }
-        //foreach (var recData in saveData.recordingData)
-        //{
-        //    byte[] audioBytes = ToByteArray(recData.audioData);
-        //    form.AddBinaryData("files[]", audioBytes, recData.title);
-        //}
 
-        UnityWebRequest req = UnityWebRequest.Post("http://localhost/turkicLanguages/upload.php", form);
-        
+        UnityWebRequest req = UnityWebRequest.Post("http://localhost/turkicLanguages/upload.php", form);        
         yield return req.SendWebRequest();
 
- 
         if (req.isHttpError || req.isNetworkError)
             Debug.Log(req.error);
         else
@@ -119,31 +110,6 @@ public class DataManager : MonoBehaviour
         }
         endCallback?.Invoke();
     }
-    public byte[] ToByteArray(float[] floatArray)
-    {
-        int len = floatArray.Length * 4;
-        byte[] byteArray = new byte[len];
-        int pos = 0;
-        foreach (float f in floatArray)
-        {
-            byte[] data = System.BitConverter.GetBytes(f);
-            System.Array.Copy(data, 0, byteArray, pos, 4);
-            pos += 4;
-        }
-        return byteArray;
-    }
-
-    //public float[] ToFloatArray(byte[] byteArray)
-    //{
-    //    int len = byteArray.Length / 4;
-    //    float[] floatArray = new float[len];
-    //    for (int i = 0; i < byteArray.Length; i += 4)
-    //    {
-    //        floatArray[i / 4] = System.BitConverter.ToSingle(byteArray, i);
-    //    }
-    //    return floatArray;
-    //}
-
 }
 
 

@@ -12,12 +12,24 @@ public class SceneTransition : MonoBehaviour
 
     public void LoadRecordingScene()
     {
+#if UNITY_WEBGL
+        SceneManager.LoadScene("RecordingWeb");
+#endif
+#if !UNITY_WEBGL
         SceneManager.LoadScene(RecordingSceneName);
+#endif
     }
+
     public void LoadFormScene()
     {
+#if UNITY_WEBGL
+        SceneManager.LoadScene("FormWeb");
+#endif
+#if !UNITY_WEBGL
         SceneManager.LoadScene(FormSceneName);
+#endif
     }
+
     public void LoadMenuScene()
     {
         SceneManager.LoadScene(MenuSceneName);
