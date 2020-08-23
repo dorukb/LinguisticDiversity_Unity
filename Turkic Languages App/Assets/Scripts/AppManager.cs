@@ -22,6 +22,8 @@ public class AppManager : MonoBehaviour
     private int imageIndex;
     private string currentRecordingId = "";
     private AudioClip currentRecording;
+    private bool isRecording = false;
+
     public Dictionary<string, AudioClip> savedRecordings;
     private void Start()
     {
@@ -37,11 +39,16 @@ public class AppManager : MonoBehaviour
 
     public void StartRecording()
     {
+        if (isRecording) return;
+
         if (savedRecordings.ContainsKey(currentRecordingId))
         {
             savedRecordings.Remove(currentRecordingId);
         }
-        currentRecording = recorder.Record();
+        currentRecording = recorder.Record(sprites[imageIndex].name);
+        // will be null if WebGL, since it wont return but keep the data on the browser side.
+
+        isRecording = true;
         currentRecordingId = sprites[imageIndex].name;
 
         recordingVisual.SetActive(false);
@@ -49,16 +56,18 @@ public class AppManager : MonoBehaviour
     }
     public void StopRecording()
     {
-        if (currentRecording == null) return;
-
+        if (!isRecording) return;
+        isRecording = false;
         statusText.text = "Finished.";
+
         recorder.StopRecording();
 
         discardButton.SetActive(true);
         recordingVisual.SetActive(true);
 
         recordingNameText.text = currentRecordingId;
-        currentRecording.name = currentRecordingId;
+        if(currentRecording != null) currentRecording.name = currentRecordingId;
+
         savedRecordings.Add(currentRecordingId, currentRecording);
     }
 
@@ -108,6 +117,11 @@ public class AppManager : MonoBehaviour
         //we are done, send all recorded audio to data manager for saving.
         foreach (var recordingPair in savedRecordings)
         {
+            if(recordingPair.Value == null)
+            {
+                Debug.Log("This was saved on webGL side. skip it.");
+                continue;
+            }
             string recordingId = recordingPair.Key;
             AudioClip recording = recordingPair.Value;
             DataManager.Instance.AddRecordingData(recordingId, recording);

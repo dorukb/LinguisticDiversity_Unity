@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.Remoting.Messaging;
-using System.Security.Cryptography;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
@@ -54,7 +50,6 @@ public class MenuManager : MonoBehaviour
         }
         restoreSessionButton.onClick.AddListener(RestoreSessionButtonCallback);
         newSessionButton.onClick.AddListener(NewSessionButtonCallback);
-        Debug.Log("added the lsiteners");
         sessionManager = FindObjectOfType<SessionManager>();
 
         if (SessionManager.sessionOpen)

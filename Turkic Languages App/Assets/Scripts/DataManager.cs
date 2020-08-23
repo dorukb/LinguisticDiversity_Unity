@@ -61,9 +61,6 @@ public class DataManager : MonoBehaviour
         float[] samples = new float[clip.samples * clip.channels];
         clip.GetData(samples, 0);
 
-        //saveData.recordingData.Add(new RecordingData(id, samples));
-
-        //Debug.Log("Saving to disk in .wav format.");
         string sessionFolder = Path.Combine(Application.persistentDataPath, sessionId);
         string filePath = Path.Combine(sessionFolder, id);
         Debug.Log("saving audio to: " + filePath);
@@ -81,7 +78,7 @@ public class DataManager : MonoBehaviour
         WWWForm form = new WWWForm();
         string sessionDirectory = Path.Combine(Application.persistentDataPath, sessionId);
 
-        // Does not use any save file, directly get all audio files associated with this session.
+        // Does not use any save file, directly gets all audio files associated with this session.
         string[] recordingPaths = Directory.GetFiles(sessionDirectory);
 
         form.AddField("id", sessionId);
@@ -91,7 +88,6 @@ public class DataManager : MonoBehaviour
             byte[] bytes = File.ReadAllBytes(filePath);
 
             string fileName = Path.GetFileName(filePath);
-            //fileName.Replace(".wav", "");
             form.AddBinaryData("files[]", bytes, fileName);
         }
 

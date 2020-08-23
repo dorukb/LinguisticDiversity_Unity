@@ -79,7 +79,7 @@ public class FormManager : MonoBehaviour
                 localFormData.gender = "FEMALE";
                 break;
             default:
-                localFormData.gender = "NONE";
+                localFormData.gender = "UNKNOWN";
                 break;
         }
     }
