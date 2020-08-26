@@ -813,7 +813,7 @@ PrefabInstance:
     - target: {fileID: 4010714701010643582, guid: 9e5ad2d968e854d4896d2a0055742995,
         type: 3}
       propertyPath: m_Options.m_Options.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4010714701010643582, guid: 9e5ad2d968e854d4896d2a0055742995,
         type: 3}
@@ -833,7 +833,7 @@ PrefabInstance:
     - target: {fileID: 4010714701010643582, guid: 9e5ad2d968e854d4896d2a0055742995,
         type: 3}
       propertyPath: m_Options.m_Options.Array.data[2].m_Text
-      value: Russian
+      value: Native
       objectReference: {fileID: 0}
     - target: {fileID: 4010714701010643582, guid: 9e5ad2d968e854d4896d2a0055742995,
         type: 3}

@@ -7,4 +7,10 @@ public static class MicrophoneWeb
 
     [DllImport("__Internal")]
     public static extern void EndRecording();
+
+    [DllImport("__Internal")]
+    public static extern void PlayCurrentRecording();
+
+    [DllImport("__Internal")]
+    public static extern void SaveCurrentRecording();
 }

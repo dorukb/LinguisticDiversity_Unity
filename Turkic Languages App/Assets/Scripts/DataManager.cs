@@ -47,14 +47,21 @@ public class DataManager : MonoBehaviour
         //string sessionDirectory = Path.Combine(Application.persistentDataPath, sessionId);
         //string[] recordingPaths = Directory.GetFiles(sessionDirectory);
     }
-    public void SaveFormData(FormData data)
+    public void SaveFormData(FormData data, Action endCallback)
     {
+#if UNITY_WEBGL
+        //directly send form data since the audio data will be send from the web side anyways.
+        StartCoroutine(UploadFormData(endCallback, data));
+#endif
+#if !UNITY_WEBGL
         saveData.formData = data;
         Debug.Log("saving form data.");
 
         string sessionFolder = Path.Combine(Application.persistentDataPath, sessionId);
         string filePath= Path.Combine(sessionFolder, "form.json");
         File.WriteAllText(filePath, JsonUtility.ToJson(data));
+        endCallback?.Invoke();
+#endif
     }
     public void AddRecordingData(string id, AudioClip clip)
     {
@@ -70,10 +77,25 @@ public class DataManager : MonoBehaviour
     public void SendDataToServer(Action endCallback = null)
     {
         Debug.Log("will send previously saved data to web backend");
-        StartCoroutine(UploadMultipleFiles(endCallback));
+        StartCoroutine(UploadAllFiles(endCallback));
     }
+    IEnumerator UploadFormData(Action endCallback, FormData data)
+    {
+        WWWForm form = new WWWForm();
+        string sessionDirectory = Path.Combine(Application.persistentDataPath, sessionId);
+        form.AddField("id", sessionId);
+        form.AddField("form", JsonUtility.ToJson(data));
 
-    IEnumerator UploadMultipleFiles(Action endCallback)
+        UnityWebRequest req = UnityWebRequest.Post("http://localhost/turkicLanguages/upload.php", form);
+        yield return req.SendWebRequest();
+
+        if (req.isHttpError || req.isNetworkError)
+            Debug.Log(req.error);
+        else
+            Debug.Log("Uploaded successfully");
+        endCallback?.Invoke();
+    }
+    IEnumerator UploadAllFiles(Action endCallback)
     {
         WWWForm form = new WWWForm();
         string sessionDirectory = Path.Combine(Application.persistentDataPath, sessionId);
@@ -91,7 +113,7 @@ public class DataManager : MonoBehaviour
             form.AddBinaryData("files[]", bytes, fileName);
         }
 
-        UnityWebRequest req = UnityWebRequest.Post("http://localhost/turkicLanguages/upload.php", form);        
+        UnityWebRequest req = UnityWebRequest.Post("http://localhost/turkicLanguages/uploadMobile.php", form);        
         yield return req.SendWebRequest();
 
         if (req.isHttpError || req.isNetworkError)

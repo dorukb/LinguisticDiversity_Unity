@@ -8,4 +8,10 @@ public class JavaScriptHook : MonoBehaviour
     {
         Debug.Log("Log from js side:" +  msg);
     }
+
+    public void DataReady()
+    {
+        var appManager = FindObjectOfType<AppManager>();
+        appManager.RecordingDataReady();
+    }
 }

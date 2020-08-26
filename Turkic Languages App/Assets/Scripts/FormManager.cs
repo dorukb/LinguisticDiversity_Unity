@@ -59,6 +59,15 @@ public class FormManager : MonoBehaviour
     public void OnNativeLanguageChange(int value)
     {
         localFormData.nativeLanguage = nativeLangDropdown.captionText.text;
+        if(localFormData.nativeLanguage == localFormData.contributionLanguage)
+        {
+            profDropdown.gameObject.SetActive(false);
+            localFormData.proficiencyLevel = 2; //native
+        }
+        else
+        {
+            profDropdown.gameObject.SetActive(true);
+        }
     }
     public void OnContributionLanguageChange(int value)
     {
@@ -112,8 +121,10 @@ public class FormManager : MonoBehaviour
 
     public void OnSubmitButton()
     {
-        DataManager.Instance.SaveFormData(localFormData);
-        FindObjectOfType<SceneTransition>().LoadMenuScene();
+        DataManager.Instance.SaveFormData(localFormData, () =>
+        { 
+            FindObjectOfType<SceneTransition>().LoadMenuScene(); 
+        });
     }
 
 }

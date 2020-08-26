@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 34283879}
   - component: {fileID: 34283878}
   m_Layer: 5
-  m_Name: Submit Recordings
+  m_Name: To Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -203,8 +203,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 291418212}
-        m_MethodName: SubmitRecordings
+      - m_Target: {fileID: 1509298016}
+        m_MethodName: LoadMenuScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -994,6 +994,7 @@ MonoBehaviour:
   recordingVisual: {fileID: 2021048313}
   imageShown: {fileID: 717584486}
   discardButton: {fileID: 1302559645}
+  advanceButton: {fileID: 731912365}
   statusText: {fileID: 264406041}
   recordingNameText: {fileID: 148207090}
   recordingCounterText: {fileID: 620563865}
@@ -1628,7 +1629,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -92}
   m_SizeDelta: {x: 750, y: 550}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &650297946
@@ -1649,11 +1650,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Thank you for taking your time !
-
-
-    Use the button below to submit
-    your recordings.'
+  m_text: Thank you for taking your time !
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1719,15 +1716,15 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -0.18697225, y: 0, z: -0.321425, w: 2.0450199}
+  m_margin: {x: -190.19162, y: 0, z: -208.54541, w: -44.805397}
   m_textInfo:
     textComponent: {fileID: 650297946}
-    characterCount: 81
+    characterCount: 32
     spriteCount: 0
-    spaceCount: 15
-    wordCount: 14
+    spaceCount: 6
+    wordCount: 6
     linkCount: 0
-    lineCount: 6
+    lineCount: 1
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -1839,7 +1836,7 @@ GameObject:
   - component: {fileID: 731912368}
   - component: {fileID: 731912367}
   m_Layer: 5
-  m_Name: Next Image Button
+  m_Name: Advance Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2622,7 +2619,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Submit Recordings
+  m_text: Menu
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2650,7 +2647,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 62.8
+  m_fontSize: 72
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2691,10 +2688,10 @@ MonoBehaviour:
   m_margin: {x: 29.451202, y: 10.194396, z: 37.380367, w: 13.252733}
   m_textInfo:
     textComponent: {fileID: 1334351011}
-    characterCount: 17
+    characterCount: 4
     spriteCount: 0
-    spaceCount: 1
-    wordCount: 2
+    spaceCount: 0
+    wordCount: 1
     linkCount: 0
     lineCount: 1
     pageCount: 1

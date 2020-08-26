@@ -11,6 +11,7 @@ public class AppManager : MonoBehaviour
     public GameObject recordingVisual;
     public Image imageShown;
     public GameObject discardButton;
+    public GameObject advanceButton;
     public TextMeshProUGUI statusText;
     public TextMeshProUGUI recordingNameText;
     public TextMeshProUGUI recordingCounterText;
@@ -31,7 +32,7 @@ public class AppManager : MonoBehaviour
         savedRecordings = new Dictionary<string, AudioClip>();
         recordingVisual.SetActive(false);
 
-        statusText.text = "Hold to start Recording.";
+        statusText.text = "Hold to Record";
         wordIndex = 0;
         imageShown.sprite = wordImagePairs[wordIndex].sprite;
         recordingCounterText.text = (wordIndex + 1).ToString() + " / " + wordImagePairs.Count;
@@ -51,6 +52,7 @@ public class AppManager : MonoBehaviour
         isRecording = true;
         currentRecordingId = wordImagePairs[wordIndex].keyword;
 
+        advanceButton.SetActive(false);
         recordingVisual.SetActive(false);
         statusText.text = "Recording...";
     }
@@ -58,13 +60,15 @@ public class AppManager : MonoBehaviour
     {
         if (!isRecording) return;
         isRecording = false;
-        statusText.text = "Finished.";
+        statusText.text = "Stopped";
 
         recorder.StopRecording();
 
         discardButton.SetActive(true);
+#if !UNITY_WEBGL
         recordingVisual.SetActive(true);
-
+        advanceButton.SetActive(true);
+#endif
         recordingNameText.text = currentRecordingId;
         if(currentRecording != null) currentRecording.name = currentRecordingId;
 
@@ -82,8 +86,19 @@ public class AppManager : MonoBehaviour
     }
     public void PlayCurrentRecording()
     {
+#if UNITY_WEBGL
+        MicrophoneWeb.PlayCurrentRecording();
+#endif
         if (currentRecording == null) return;
         recorder.PlayRecording(currentRecording);
+    }
+    public void RecordingDataReady() 
+    {
+        // Case for WebGL versions. 
+        // Since the audio processing there is async and out of unity's control, we require this callback.
+        // now we can advance to the next item safely, without losing data.
+        advanceButton.SetActive(true);
+        recordingVisual.SetActive(true);
     }
     public void NextImage()
     {
@@ -93,19 +108,20 @@ public class AppManager : MonoBehaviour
         if (wordIndex >= wordImagePairs.Count)
         {
             FinishRecordingPhase();
-            //DataManager.Instance.SendDataToServer();
         }
         else
         {
             imageShown.sprite = wordImagePairs[wordIndex].sprite;
-
+#if UNITY_WEBGL
+            MicrophoneWeb.SaveCurrentRecording();
+#endif
             // current recording will be reset here. make sure its stored somewhere before this point.
             //reset recording visuals and state, except savedRecording, we keep them ofc.
             currentRecording = null;
             currentRecordingId = "";
 
             recordingVisual.SetActive(false);
-            statusText.text = "Hold to start Recording.";
+            statusText.text = "Hold to Record";
         }
        
     }
@@ -115,6 +131,7 @@ public class AppManager : MonoBehaviour
         recordingPanel.SetActive(false);
         endPanel.SetActive(true);
         //we are done, send all recorded audio to data manager for saving.
+#if !UNITY_WEBGL
         foreach (var recordingPair in savedRecordings)
         {
             if(recordingPair.Value == null)
@@ -126,6 +143,7 @@ public class AppManager : MonoBehaviour
             AudioClip recording = recordingPair.Value;
             DataManager.Instance.AddRecordingData(recordingId, recording);
         }
+#endif
     }
 
     // Called by the submit button

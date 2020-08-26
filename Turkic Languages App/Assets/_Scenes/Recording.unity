@@ -1080,6 +1080,7 @@ MonoBehaviour:
   recordingVisual: {fileID: 2021048313}
   imageShown: {fileID: 717584486}
   discardButton: {fileID: 1302559645}
+  advanceButton: {fileID: 731912365}
   statusText: {fileID: 264406041}
   recordingNameText: {fileID: 148207090}
   recordingCounterText: {fileID: 620563865}
