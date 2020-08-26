@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 35_Leg
   m_EditorClassIdentifier: 
   keyword: leg
-  image: {fileID: 21300000, guid: b0edf3a19b0c6604f9d03e67082b550c, type: 3}
+  sprite: {fileID: 21300000, guid: b0edf3a19b0c6604f9d03e67082b550c, type: 3}

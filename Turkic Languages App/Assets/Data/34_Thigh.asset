@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 34_Thigh
   m_EditorClassIdentifier: 
   keyword: thigh
-  image: {fileID: 21300000, guid: fd245cffc3b706344b6e3e6db542327f, type: 3}
+  sprite: {fileID: 21300000, guid: fd245cffc3b706344b6e3e6db542327f, type: 3}

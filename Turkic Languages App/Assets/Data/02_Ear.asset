@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 02_Ear
   m_EditorClassIdentifier: 
   keyword: ear
-  image: {fileID: 21300000, guid: 4df03ac2421f0bf4e9181db587dda42c, type: 3}
+  sprite: {fileID: 21300000, guid: 4df03ac2421f0bf4e9181db587dda42c, type: 3}

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 15_Jaw
   m_EditorClassIdentifier: 
   keyword: jaw
-  image: {fileID: 21300000, guid: ea714a90ad5f80742a4f1cbecc4215fe, type: 3}
+  sprite: {fileID: 21300000, guid: ea714a90ad5f80742a4f1cbecc4215fe, type: 3}

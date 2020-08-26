@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 09_Face
   m_EditorClassIdentifier: 
   keyword: face
-  image: {fileID: 21300000, guid: 2922c078b78fb144ca457a9b1dad578e, type: 3}
+  sprite: {fileID: 21300000, guid: 2922c078b78fb144ca457a9b1dad578e, type: 3}

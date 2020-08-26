@@ -11,7 +11,7 @@ public class SessionManager : MonoBehaviour
         if (!string.IsNullOrEmpty(PlayerPrefs.GetString("lastSession")))
         { // prev session exists
             sessionId = PlayerPrefs.GetString("lastSession");
-            Debug.Log("Session id is:" + sessionId);
+            Debug.Log("Previous session id is:" + sessionId);
             string dirPath = Path.Combine(Application.persistentDataPath, sessionId);
             if (!Directory.Exists(dirPath))
             {

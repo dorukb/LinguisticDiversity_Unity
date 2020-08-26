@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 13_Beard
   m_EditorClassIdentifier: 
   keyword: beard
-  image: {fileID: 21300000, guid: 763c383ec3b2ce440a964934ae96bf08, type: 3}
+  sprite: {fileID: 21300000, guid: 763c383ec3b2ce440a964934ae96bf08, type: 3}

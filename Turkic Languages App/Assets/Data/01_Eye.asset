@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 01_Eye
   m_EditorClassIdentifier: 
   keyword: eye
-  image: {fileID: 21300000, guid: caebb2bc165db6b46af3e43dab440075, type: 3}
+  sprite: {fileID: 21300000, guid: caebb2bc165db6b46af3e43dab440075, type: 3}

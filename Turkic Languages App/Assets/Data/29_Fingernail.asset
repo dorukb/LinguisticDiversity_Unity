@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 29_Fingernail
   m_EditorClassIdentifier: 
   keyword: fingernail
-  image: {fileID: 21300000, guid: 213f79b1c9cf8d24ca5adc92bc8cf69d, type: 3}
+  sprite: {fileID: 21300000, guid: 213f79b1c9cf8d24ca5adc92bc8cf69d, type: 3}

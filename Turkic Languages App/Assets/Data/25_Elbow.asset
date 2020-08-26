@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 25_Elbow
   m_EditorClassIdentifier: 
   keyword: elbow
-  image: {fileID: 21300000, guid: 6d3495e3c4cdf9b4ba3f83bb14dcbb62, type: 3}
+  sprite: {fileID: 21300000, guid: 6d3495e3c4cdf9b4ba3f83bb14dcbb62, type: 3}

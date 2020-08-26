@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 19_Back
   m_EditorClassIdentifier: 
   keyword: back
-  image: {fileID: 21300000, guid: ff0ddddf5745c4446a985fe191dbbfd6, type: 3}
+  sprite: {fileID: 21300000, guid: ff0ddddf5745c4446a985fe191dbbfd6, type: 3}

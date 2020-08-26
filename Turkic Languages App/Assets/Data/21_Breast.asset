@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 21_Breast
   m_EditorClassIdentifier: 
   keyword: breast
-  image: {fileID: 21300000, guid: 5672ae52cf98c874780a78a108991d5d, type: 3}
+  sprite: {fileID: 21300000, guid: 5672ae52cf98c874780a78a108991d5d, type: 3}

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 06_Tongue
   m_EditorClassIdentifier: 
   keyword: tongue
-  image: {fileID: 21300000, guid: 3ac78fabc23ba614486b96cd66b58c75, type: 3}
+  sprite: {fileID: 21300000, guid: 3ac78fabc23ba614486b96cd66b58c75, type: 3}

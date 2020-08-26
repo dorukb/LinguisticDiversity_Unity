@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 07_Lip
   m_EditorClassIdentifier: 
   keyword: lip
-  image: {fileID: 21300000, guid: 64aacc1b568b7fb498290512fa8cb6ed, type: 3}
+  sprite: {fileID: 21300000, guid: 64aacc1b568b7fb498290512fa8cb6ed, type: 3}

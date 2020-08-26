@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class AppManager : MonoBehaviour
 {
-    public List<Sprite> sprites;
+    public List<Word> wordImagePairs;
 
     [Header("UI References")]
     public GameObject recordingVisual;
@@ -19,7 +19,7 @@ public class AppManager : MonoBehaviour
     public GameObject endPanel;
 
     private RecordAudio recorder;
-    private int imageIndex;
+    private int wordIndex;
     private string currentRecordingId = "";
     private AudioClip currentRecording;
     private bool isRecording = false;
@@ -32,9 +32,9 @@ public class AppManager : MonoBehaviour
         recordingVisual.SetActive(false);
 
         statusText.text = "Hold to start Recording.";
-        imageIndex = 0;
-        imageShown.sprite = sprites[imageIndex];
-        recordingCounterText.text = (imageIndex + 1).ToString() + " / " + sprites.Count;
+        wordIndex = 0;
+        imageShown.sprite = wordImagePairs[wordIndex].sprite;
+        recordingCounterText.text = (wordIndex + 1).ToString() + " / " + wordImagePairs.Count;
     }
 
     public void StartRecording()
@@ -45,11 +45,11 @@ public class AppManager : MonoBehaviour
         {
             savedRecordings.Remove(currentRecordingId);
         }
-        currentRecording = recorder.Record(sprites[imageIndex].name);
+        currentRecording = recorder.Record(wordImagePairs[wordIndex].keyword);
         // will be null if WebGL, since it wont return but keep the data on the browser side.
 
         isRecording = true;
-        currentRecordingId = sprites[imageIndex].name;
+        currentRecordingId = wordImagePairs[wordIndex].keyword;
 
         recordingVisual.SetActive(false);
         statusText.text = "Recording...";
@@ -87,17 +87,17 @@ public class AppManager : MonoBehaviour
     }
     public void NextImage()
     {
-        imageIndex++;
-        recordingCounterText.text = (imageIndex + 1).ToString() + " / " + sprites.Count;
+        wordIndex++;
+        recordingCounterText.text = (wordIndex + 1).ToString() + " / " + wordImagePairs.Count;
 
-        if (imageIndex >= sprites.Count)
+        if (wordIndex >= wordImagePairs.Count)
         {
             FinishRecordingPhase();
             //DataManager.Instance.SendDataToServer();
         }
         else
         {
-            imageShown.sprite = sprites[imageIndex];
+            imageShown.sprite = wordImagePairs[wordIndex].sprite;
 
             // current recording will be reset here. make sure its stored somewhere before this point.
             //reset recording visuals and state, except savedRecording, we keep them ofc.

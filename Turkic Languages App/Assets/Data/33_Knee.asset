@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 33_Knee
   m_EditorClassIdentifier: 
   keyword: Knee
-  image: {fileID: 21300000, guid: e34543d88acf5234f8ecce023adb70ed, type: 3}
+  sprite: {fileID: 21300000, guid: e34543d88acf5234f8ecce023adb70ed, type: 3}

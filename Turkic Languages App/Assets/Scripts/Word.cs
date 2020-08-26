@@ -4,5 +4,5 @@
 public class Word : ScriptableObject
 {
     public string keyword;
-    public Sprite image;
+    public Sprite sprite;
 }

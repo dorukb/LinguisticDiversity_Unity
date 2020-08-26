@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 38_Blood
   m_EditorClassIdentifier: 
   keyword: blood
-  image: {fileID: 21300000, guid: 46ad7c4a6210e7143a45d893f5aa4c9c, type: 3}
+  sprite: {fileID: 21300000, guid: 46ad7c4a6210e7143a45d893f5aa4c9c, type: 3}

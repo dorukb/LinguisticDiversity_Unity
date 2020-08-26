@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 18_Head
   m_EditorClassIdentifier: 
   keyword: head
-  image: {fileID: 21300000, guid: bc6274e700854e54b98edf1f0e3c8521, type: 3}
+  sprite: {fileID: 21300000, guid: bc6274e700854e54b98edf1f0e3c8521, type: 3}

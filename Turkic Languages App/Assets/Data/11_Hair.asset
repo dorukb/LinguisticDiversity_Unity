@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 11_Hair
   m_EditorClassIdentifier: 
   keyword: hair
-  image: {fileID: 21300000, guid: d4b8d3ab5534a6042b9309022d44889f, type: 3}
+  sprite: {fileID: 21300000, guid: d4b8d3ab5534a6042b9309022d44889f, type: 3}

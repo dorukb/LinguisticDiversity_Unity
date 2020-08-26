@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 45_Liver
   m_EditorClassIdentifier: 
   keyword: liver
-  image: {fileID: 21300000, guid: 4f6af22a87bdecd4db67dae4797f547e, type: 3}
+  sprite: {fileID: 21300000, guid: 4f6af22a87bdecd4db67dae4797f547e, type: 3}

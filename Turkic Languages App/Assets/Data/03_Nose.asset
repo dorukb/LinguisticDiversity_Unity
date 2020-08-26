@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 03_Nose
   m_EditorClassIdentifier: 
   keyword: nose
-  image: {fileID: 21300000, guid: 93bbec1cec62e0848a73b812eda7c1c5, type: 3}
+  sprite: {fileID: 21300000, guid: 93bbec1cec62e0848a73b812eda7c1c5, type: 3}

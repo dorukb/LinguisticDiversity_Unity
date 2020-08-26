@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 24_Arm
   m_EditorClassIdentifier: 
   keyword: arm
-  image: {fileID: 21300000, guid: 6d667f48eaf8da149beaffe2138112fc, type: 3}
+  sprite: {fileID: 21300000, guid: 6d667f48eaf8da149beaffe2138112fc, type: 3}

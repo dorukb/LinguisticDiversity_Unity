@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 22_Chest
   m_EditorClassIdentifier: 
   keyword: chest
-  image: {fileID: 21300000, guid: 99a8f5f89a3fb0346a65b0d417677715, type: 3}
+  sprite: {fileID: 21300000, guid: 99a8f5f89a3fb0346a65b0d417677715, type: 3}

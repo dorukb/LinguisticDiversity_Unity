@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 42_Brain
   m_EditorClassIdentifier: 
   keyword: brain
-  image: {fileID: 21300000, guid: ff9de6eaa9ed64f4fae391ad19062244, type: 3}
+  sprite: {fileID: 21300000, guid: ff9de6eaa9ed64f4fae391ad19062244, type: 3}

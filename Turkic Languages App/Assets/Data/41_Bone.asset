@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 41_Bone
   m_EditorClassIdentifier: 
   keyword: bone
-  image: {fileID: 21300000, guid: c87344408f0b20e42867e887bea661c1, type: 3}
+  sprite: {fileID: 21300000, guid: c87344408f0b20e42867e887bea661c1, type: 3}
