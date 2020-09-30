@@ -9,6 +9,10 @@ using UnityEngine.SceneManagement;
 public class DataManager : MonoBehaviour
 {
     public static DataManager Instance;
+    //public string mobileTestAddress = "http://localhost/turkicLanguages/upload.php";
+
+    public string mobilePostAddress = "http://coltekin.net/audio/mobileUpload.php";
+
     public string sessionId;
     public SaveData saveData = new SaveData();
     #region SingletonAndDontDestroyBehaviour
@@ -86,7 +90,7 @@ public class DataManager : MonoBehaviour
         form.AddField("id", sessionId);
         form.AddField("form", JsonUtility.ToJson(data));
 
-        UnityWebRequest req = UnityWebRequest.Post("http://localhost/turkicLanguages/upload.php", form);
+        UnityWebRequest req = UnityWebRequest.Post(mobilePostAddress, form);
         yield return req.SendWebRequest();
 
         if (req.isHttpError || req.isNetworkError)
@@ -138,9 +142,9 @@ public class SaveData
 }
 public class FormData
 {
-    public string gender;
-    public string nativeLanguage;
-    public string contributionLanguage;
+    public string gender = "";
+    public string nativeLanguage = "";
+    public string contributionLanguage = "";
     public int proficiencyLevel;
     public int age;
     public void Print()

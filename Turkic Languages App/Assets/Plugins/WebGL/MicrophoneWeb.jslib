@@ -9,6 +9,7 @@ var LibraryMyPlugin = {
       isRecording: false,
       mime: "",
       audioPlayback: null,
+      postAddress: "http://coltekin.net/audio/",
     },
 
   StartRecording: function(sessionId, recordingName)
@@ -113,7 +114,7 @@ var LibraryMyPlugin = {
         }
       };
       
-      xhr.open("POST","http://localhost/turkicLanguages/upload.php",true);
+      xhr.open("POST",postAddress,true);
       xhr.send(fd);
     };      
     reader.readAsDataURL(this.blob);
