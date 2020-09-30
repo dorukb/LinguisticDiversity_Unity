@@ -114,7 +114,7 @@ var LibraryMyPlugin = {
         }
       };
       
-      xhr.open("POST",postAddress,true);
+      xhr.open("POST",recording.postAddress,true);
       xhr.send(fd);
     };      
     reader.readAsDataURL(this.blob);
