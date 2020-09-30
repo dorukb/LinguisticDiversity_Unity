@@ -63,7 +63,8 @@ public class MenuManager : MonoBehaviour
             sessionUi.SetActive(true);
 
             bool hasPrevSession = !string.IsNullOrEmpty(SessionManager.sessionId);
-            restoreSessionButton.gameObject.SetActive(hasPrevSession);
+            // restore session functionality is disabled/not implemented on webGL version.
+            restoreSessionButton.gameObject.SetActive(hasPrevSession && !isWeb);
         }
     }
 

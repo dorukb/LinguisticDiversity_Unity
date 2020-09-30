@@ -95,7 +95,7 @@ public class AppManager : MonoBehaviour
     public void RecordingDataReady() 
     {
         // Case for WebGL versions. 
-        // Since the audio processing there is async and out of unity's control, we require this callback.
+        // Since the audio processing on the browser side is async and out of unity's control, we require this callback.
         // now we can advance to the next item safely, without losing data.
         advanceButton.SetActive(true);
         recordingVisual.SetActive(true);
