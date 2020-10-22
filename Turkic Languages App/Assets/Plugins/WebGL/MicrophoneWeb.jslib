@@ -9,7 +9,7 @@ var LibraryMyPlugin = {
       isRecording: false,
       mime: "",
       audioPlayback: null,
-      postAddress: "http://coltekin.net/audio/",
+      postAddress: "https://coltekin.net/audio/upload.php",
     },
 
   StartRecording: function(sessionId, recordingName)

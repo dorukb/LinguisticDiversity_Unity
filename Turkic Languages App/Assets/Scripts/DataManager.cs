@@ -9,9 +9,10 @@ using UnityEngine.SceneManagement;
 public class DataManager : MonoBehaviour
 {
     public static DataManager Instance;
-    //public string mobileTestAddress = "http://localhost/turkicLanguages/upload.php";
+    //public string testAddress = "http://localhost/turkicLanguages/upload.php";
 
-    public string mobilePostAddress = "http://coltekin.net/audio/mobileUpload.php";
+    public string mobilePostAddress = "https://coltekin.net/audio/uploadMobile.php";
+    public string webPostAdress = "https://coltekin.net/audio/upload.php";
 
     public string sessionId;
     public SaveData saveData = new SaveData();
@@ -90,7 +91,7 @@ public class DataManager : MonoBehaviour
         form.AddField("id", sessionId);
         form.AddField("form", JsonUtility.ToJson(data));
 
-        UnityWebRequest req = UnityWebRequest.Post(mobilePostAddress, form);
+        UnityWebRequest req = UnityWebRequest.Post(webPostAdress, form);
         yield return req.SendWebRequest();
 
         if (req.isHttpError || req.isNetworkError)
@@ -117,7 +118,7 @@ public class DataManager : MonoBehaviour
             form.AddBinaryData("files[]", bytes, fileName);
         }
 
-        UnityWebRequest req = UnityWebRequest.Post("http://localhost/turkicLanguages/uploadMobile.php", form);        
+        UnityWebRequest req = UnityWebRequest.Post(mobilePostAddress, form);        
         yield return req.SendWebRequest();
 
         if (req.isHttpError || req.isNetworkError)
