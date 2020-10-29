@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AppManager : MonoBehaviour
+public class RecordingManager : MonoBehaviour
 {
     public List<Word> wordImagePairs;
 
@@ -34,6 +34,10 @@ public class AppManager : MonoBehaviour
 
         statusText.text = "Hold to Record";
         wordIndex = 0;
+
+        //shuffle the words for more uniform data collection
+        wordImagePairs.Shuffle();
+
         imageShown.sprite = wordImagePairs[wordIndex].sprite;
         recordingCounterText.text = (wordIndex + 1).ToString() + " / " + wordImagePairs.Count;
     }
@@ -59,13 +63,13 @@ public class AppManager : MonoBehaviour
     public void StopRecording()
     {
         if (!isRecording) return;
+
         isRecording = false;
-        statusText.text = "Stopped";
+        statusText.text = "Hold to Record";
 
         recorder.StopRecording();
-
         discardButton.SetActive(true);
-#if !UNITY_WEBGL
+#if !UNITY_WEBGL || UNITY_EDITOR
         recordingVisual.SetActive(true);
         advanceButton.SetActive(true);
 #endif
@@ -81,12 +85,12 @@ public class AppManager : MonoBehaviour
         currentRecording = null;
         currentRecordingId = "";
 
-        statusText.text = "Discarded. Hold to Record Again.";
+        statusText.text = "Hold to Record Again.";
         recordingVisual.SetActive(false);
     }
     public void PlayCurrentRecording()
     {
-#if UNITY_WEBGL
+#if UNITY_WEBGL && !UNITY_EDITOR
         MicrophoneWeb.PlayCurrentRecording();
 #endif
         if (currentRecording == null) return;
@@ -112,7 +116,7 @@ public class AppManager : MonoBehaviour
         else
         {
             imageShown.sprite = wordImagePairs[wordIndex].sprite;
-#if UNITY_WEBGL
+#if UNITY_WEBGL && !UNITY_EDITOR
             MicrophoneWeb.SaveCurrentRecording();
 #endif
             // current recording will be reset here. make sure its stored somewhere before this point.
@@ -131,7 +135,7 @@ public class AppManager : MonoBehaviour
         recordingPanel.SetActive(false);
         endPanel.SetActive(true);
         //we are done, send all recorded audio to data manager for saving.
-#if !UNITY_WEBGL
+#if !UNITY_WEBGL || UNITY_EDITOR
         foreach (var recordingPair in savedRecordings)
         {
             if(recordingPair.Value == null)

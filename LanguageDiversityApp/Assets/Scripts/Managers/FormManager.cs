@@ -152,7 +152,7 @@ public class FormManager : MonoBehaviour
     {
         DataManager.Instance.SaveFormData(localFormData, () =>
         { 
-            FindObjectOfType<SceneTransition>().LoadMenuScene(); 
+            FindObjectOfType<SceneTransition>().LoadRecordingScene(); 
         });
     }
 

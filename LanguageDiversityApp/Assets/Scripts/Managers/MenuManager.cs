@@ -52,20 +52,16 @@ public class MenuManager : MonoBehaviour
         newSessionButton.onClick.AddListener(NewSessionButtonCallback);
         sessionManager = FindObjectOfType<SessionManager>();
 
-        if (SessionManager.sessionOpen)
-        {
-            sessionUi.SetActive(false);
-            menuUi.SetActive(true);
-        }
-        else
+
+        if (isWeb || SessionManager.sessionOpen)
         {
             menuUi.SetActive(false);
             sessionUi.SetActive(true);
-
-            bool hasPrevSession = !string.IsNullOrEmpty(SessionManager.sessionId);
-            // restore session functionality is disabled/not implemented on webGL version.
-            restoreSessionButton.gameObject.SetActive(hasPrevSession && !isWeb);
         }
+        bool hasPrevSession = !string.IsNullOrEmpty(SessionManager.sessionId);
+        // restore session functionality is disabled/not implemented on webGL version.
+        restoreSessionButton.gameObject.SetActive(hasPrevSession && !isWeb);
+        
     }
 
     public void RestoreSessionButtonCallback()
@@ -79,8 +75,11 @@ public class MenuManager : MonoBehaviour
     {
         sessionManager.NewSession();
 
-        sessionUi.SetActive(false);
-        menuUi.SetActive(true);
+        //sessionUi.SetActive(false);
+        //menuUi.SetActive(true);
+
+        // Directly transition to Form scene
+        FindObjectOfType<SceneTransition>().LoadFormScene();
     }
 
     public void SendPreviouslySavedData()

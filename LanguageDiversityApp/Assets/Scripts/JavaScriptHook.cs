@@ -11,7 +11,7 @@ public class JavaScriptHook : MonoBehaviour
 
     public void DataReady()
     {
-        var appManager = FindObjectOfType<AppManager>();
-        appManager.RecordingDataReady();
+        var recordingManager = FindObjectOfType<RecordingManager>();
+        recordingManager.RecordingDataReady();
     }
 }

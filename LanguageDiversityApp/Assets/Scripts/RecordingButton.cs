@@ -3,10 +3,10 @@ using UnityEngine.EventSystems;
 
 public class RecordingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-    AppManager manager;
+    RecordingManager manager;
     void Awake()
     {
-        manager = FindObjectOfType<AppManager>();
+        manager = FindObjectOfType<RecordingManager>();
     }
     public void OnPointerDown(PointerEventData eventData)
     {
