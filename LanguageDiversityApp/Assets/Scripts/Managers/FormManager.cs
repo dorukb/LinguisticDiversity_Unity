@@ -1,48 +1,34 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using static TMPro.TMP_Dropdown;
 public class FormManager : MonoBehaviour
 {
-
-    //public TMP_Dropdown nativeLangDropdown;
     public TMP_Dropdown genderDropdown;
-    public TMP_Dropdown contributionLangDropdown;
     public TMP_Dropdown profDropdown;
     public TMP_InputField ageInput;
     public TMP_InputField nativeLangInput;
+    public TMP_InputField contributionLangInput;
 
+
+    public InputFieldVisual nativeLanguageVisual;
+    public InputFieldVisual contributionLanguageVisual;
+
+    public GameObject EmptyFieldsPopup;
     private FormData localFormData;
 
-    //prob read from a file since this is LONG.
-    // We let the user type in their native language.
-    //private string[] nativeLanguages = new string[]
-    //{
-    //    "Turkish",
-    //    "German",
-    //    "Azeri",
-    //};
-
-    // This will be relatively short, depends on how many languages we support. <25 i'd say. So can be written here or also in file.
-    private string[] contributionLanguages = new string[]
-    {
-        "Turkish",
-        "Azeri",
-    };
+    private bool nativeLangEmpty = false;
+    private bool contrLangEmpty = false;
     private void Awake()
     {
-        //ConfigureNativeLanguageDropdown();
-        ConfigureContributionLanguageDropdown();
+        EmptyFieldsPopup.SetActive(false);
 
         //ageInput.keyboardType = TouchScreenKeyboardType.NumberPad;
         ageInput.onValueChanged.AddListener(OnAgeChange);
-        contributionLangDropdown.onValueChanged.AddListener(OnContributionLanguageChange);
 
-        //nativeLangDropdown.onValueChanged.AddListener(OnNativeLanguageChange);
         nativeLangInput.onValueChanged.AddListener(OnNativeLanguageChange);
+        contributionLangInput.onValueChanged.AddListener(OnContributionLanguageChange);
 
         genderDropdown.onValueChanged.AddListener(OnGenderChange);
         profDropdown.onValueChanged.AddListener(OnProficiencyChange);
@@ -51,9 +37,9 @@ public class FormManager : MonoBehaviour
         localFormData.Print();
         OnAgeChange(ageInput.text);
         OnGenderChange(genderDropdown.value);
-        //OnNativeLanguageChange(nativeLangDropdown.value);
+
         OnNativeLanguageChange(nativeLangInput.text);
-        OnContributionLanguageChange(contributionLangDropdown.value);
+        OnContributionLanguageChange(contributionLangInput.text);
         OnProficiencyChange(profDropdown.value);
     }
 
@@ -66,32 +52,31 @@ public class FormManager : MonoBehaviour
     public void OnNativeLanguageChange(string text)
     {
         localFormData.nativeLanguage = text.ToUpper();
+        if (nativeLangEmpty && !string.IsNullOrEmpty(text))
+        {
+            nativeLangEmpty = false;
+            nativeLanguageVisual.ClearFillError();
+        }
         CheckAndHideProficiencyButton();
     }
-    //public void OnNativeLanguageChange(int value)
-    //{
-    //    localFormData.nativeLanguage = nativeLangDropdown.captionText.text;
-    //    if(localFormData.nativeLanguage == localFormData.contributionLanguage)
-    //    {
-    //        profDropdown.gameObject.SetActive(false);
-    //        localFormData.proficiencyLevel = 2; //native
-    //    }
-    //    else
-    //    {
-    //        profDropdown.gameObject.SetActive(true);
-    //    }
-    //}
-    public void OnContributionLanguageChange(int value)
+    public void OnContributionLanguageChange(string text)
     {
-        localFormData.contributionLanguage = contributionLangDropdown.captionText.text;
+        localFormData.contributionLanguage = text.ToUpper();
+        if (contrLangEmpty && !string.IsNullOrEmpty(text))
+        {
+            contrLangEmpty = false;
+            contributionLanguageVisual.ClearFillError();
+        }
         CheckAndHideProficiencyButton();
     }
 
     private void CheckAndHideProficiencyButton()
     {
-        if (localFormData.nativeLanguage == null || localFormData.contributionLanguage == null) Debug.Log("null error.");
-        if (localFormData.nativeLanguage.ToUpper() == null) Debug.Log("to upper returns null");
-        if (localFormData.nativeLanguage.ToUpper() == localFormData.contributionLanguage.ToUpper())
+        if (string.IsNullOrEmpty(localFormData.nativeLanguage) || string.IsNullOrEmpty(localFormData.contributionLanguage))
+        {
+            profDropdown.gameObject.SetActive(true);
+        }
+        else if (localFormData.nativeLanguage.ToUpper() == localFormData.contributionLanguage.ToUpper())
         {
             profDropdown.gameObject.SetActive(false);
             localFormData.proficiencyLevel = 2; //native
@@ -122,38 +107,27 @@ public class FormManager : MonoBehaviour
         }
     }
 
-
-    // Do this for all dropdown that have LOTS of options, and so are read from file.
-    // For our purposes, native language & contribution language are the only ones.
-    // rest are configured inside the editor.
-    //private void ConfigureNativeLanguageDropdown()
-    //{
-
-    //    List<OptionData> nativeLangOptions = new List<OptionData>();
-    //    foreach (var lang in nativeLanguages)
-    //    {
-    //        nativeLangOptions.Add(new OptionData(lang));
-    //    }
-    //    nativeLangDropdown.AddOptions(nativeLangOptions);
-    //}
-    private void ConfigureContributionLanguageDropdown()
-    {
-
-        List<OptionData> options = new List<OptionData>();
-        foreach (var lang in contributionLanguages)
-        {
-            options.Add(new OptionData(lang));
-        }
-        contributionLangDropdown.AddOptions(options);
-    }
-
-
     public void OnSubmitButton()
     {
-        DataManager.Instance.SaveFormData(localFormData, () =>
-        { 
-            FindObjectOfType<SceneTransition>().LoadRecordingScene(); 
-        });
+        nativeLangEmpty = nativeLangInput.text.Length < 2;
+        contrLangEmpty = contributionLangInput.text.Length < 2;
+
+        if (nativeLangEmpty || contrLangEmpty) 
+        {
+            //not allow submission and notify user that thare are empty fields that need to be filled in.
+            if (nativeLangEmpty) nativeLanguageVisual.ShowFillError();
+            if (contrLangEmpty) contributionLanguageVisual.ShowFillError();
+
+            EmptyFieldsPopup.SetActive(true);
+        }
+        else
+        {
+            DataManager.Instance.SaveFormData(localFormData, () =>
+            {
+                FindObjectOfType<SceneTransition>().LoadRecordingScene();
+            });
+        }
     }
+
 
 }
