@@ -334,7 +334,7 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0.8109741, y: 1.9815254, z: 7.1647797, w: 0.58164406}
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 9207105063713731451}
     characterCount: 3
@@ -856,8 +856,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46ca3f12fb172db42b6e0b5bba805b14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultLabel: Native language
-  fillErrorLabel: Native language (required)
   label: {fileID: 9207105063713731451}
   fieldBackground: {fileID: 9207105064740364454}
   fillErrorMat: {fileID: 2100000, guid: fdf4644c914e70d449197358ecec3593, type: 2}

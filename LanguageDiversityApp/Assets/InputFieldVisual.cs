@@ -4,19 +4,21 @@ using UnityEngine.UI;
 
 public class InputFieldVisual : MonoBehaviour
 {
-
-    public string defaultLabel = "Native language";
-    public string fillErrorLabel = "Native language (required)";
-
     public TextMeshProUGUI label;
     public Image fieldBackground;
     public Material fillErrorMat;
     public Material defaultMat;
     public GameObject fillErrorIcon;
 
+    private string defaultLabel;
+
+    private void Start()
+    {
+        defaultLabel = label.text;
+    }
     public void ShowFillError()
     {
-        label.text = fillErrorLabel;
+        label.text = defaultLabel + " (required)";
         fieldBackground.material = fillErrorMat;
         fillErrorIcon.SetActive(true);
     }
@@ -26,3 +28,4 @@ public class InputFieldVisual : MonoBehaviour
         fieldBackground.material = defaultMat;
         fillErrorIcon.SetActive(false);
     }
+}
