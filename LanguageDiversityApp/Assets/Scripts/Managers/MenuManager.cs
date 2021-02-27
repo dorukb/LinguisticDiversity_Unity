@@ -79,7 +79,14 @@ public class MenuManager : MonoBehaviour
         //menuUi.SetActive(true);
 
         // Directly transition to Form scene
-        FindObjectOfType<SceneTransition>().LoadFormScene();
+        if (FindObjectOfType<CheckboxButton>().consentGiven)
+        {
+            FindObjectOfType<SceneTransition>().LoadFormScene();
+        }
+        else
+        {
+            Debug.Log("please first give consent.");
+        }
     }
 
     public void SendPreviouslySavedData()
