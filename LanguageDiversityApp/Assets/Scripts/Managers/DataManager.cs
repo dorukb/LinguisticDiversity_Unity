@@ -9,12 +9,10 @@ using UnityEngine.SceneManagement;
 public class DataManager : MonoBehaviour
 {
     public static DataManager Instance;
-    //public string testAddress = "http://localhost/turkicLanguages/upload.php";
 
     public string mobilePostAddress = "https://coltekin.net/audio/uploadMobile.php";
     public string webPostAdress = "https://coltekin.net/audio/upload.php";
 
-    public string sessionId;
     public SaveData saveData = new SaveData();
     #region SingletonAndDontDestroyBehaviour
     void Awake()
@@ -44,13 +42,8 @@ public class DataManager : MonoBehaviour
 
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        //Load() from file prev recordings?.
+        //Maybe Load() from the prev recordings from disk.
         saveData.recordingData = new List<RecordingData>();
-    }
-    public void RestoreRecordingsFromPreviousSession(string sessionId)
-    {
-        //string sessionDirectory = Path.Combine(Application.persistentDataPath, sessionId);
-        //string[] recordingPaths = Directory.GetFiles(sessionDirectory);
     }
     public void SaveFormData(FormData data, Action endCallback)
     {
@@ -60,8 +53,6 @@ public class DataManager : MonoBehaviour
 #endif
 #if !UNITY_WEBGL
         saveData.formData = data;
-        Debug.Log("saving form data.");
-
         string sessionFolder = Path.Combine(Application.persistentDataPath, sessionId);
         string filePath= Path.Combine(sessionFolder, "form.json");
         File.WriteAllText(filePath, JsonUtility.ToJson(data));
@@ -73,7 +64,7 @@ public class DataManager : MonoBehaviour
         float[] samples = new float[clip.samples * clip.channels];
         clip.GetData(samples, 0);
 
-        string sessionFolder = Path.Combine(Application.persistentDataPath, sessionId);
+        string sessionFolder = SessionManager.sessionPath;
         string filePath = Path.Combine(sessionFolder, id);
         Debug.Log("saving audio to: " + filePath);
         SavWav.Save(filePath, clip);
@@ -87,8 +78,8 @@ public class DataManager : MonoBehaviour
     IEnumerator UploadFormData(Action endCallback, FormData data)
     {
         WWWForm form = new WWWForm();
-        string sessionDirectory = Path.Combine(Application.persistentDataPath, sessionId);
-        form.AddField("id", sessionId);
+        string sessionDirectory = SessionManager.sessionPath;
+        form.AddField("id", SessionManager.sessionId);
         form.AddField("form", JsonUtility.ToJson(data));
 
         UnityWebRequest req = UnityWebRequest.Post(webPostAdress, form);
@@ -103,12 +94,12 @@ public class DataManager : MonoBehaviour
     IEnumerator UploadAllFiles(Action endCallback)
     {
         WWWForm form = new WWWForm();
-        string sessionDirectory = Path.Combine(Application.persistentDataPath, sessionId);
+        string sessionDirectory = SessionManager.sessionPath;
 
         // Does not use any save file, directly gets all audio files associated with this session.
         string[] recordingPaths = Directory.GetFiles(sessionDirectory);
+        form.AddField("id", SessionManager.sessionId);
 
-        form.AddField("id", sessionId);
         foreach(string filePath in recordingPaths)
         {
             File.OpenRead(filePath);

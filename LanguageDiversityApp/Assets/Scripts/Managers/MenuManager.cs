@@ -8,14 +8,12 @@ public class MenuManager : MonoBehaviour
     public GameObject webUI;
     // for mobile UI
     [Header("Mobile UI Fields")]
-    public Button restoreSessionButton;
     public Button newSessionButton;
     public GameObject sessionUi;
     public GameObject menuUi;
 
     // webGL ui fields    
     [Header("WebGL UI Fields")]
-    public Button restoreSessionButtonWeb;
     public Button newSessionButtonWeb;
     public GameObject sessionUiWeb;
     public GameObject menuUiWeb;
@@ -43,12 +41,10 @@ public class MenuManager : MonoBehaviour
         {
             //swap the UIs
             Debug.Log("running on webGL");
-            restoreSessionButton = restoreSessionButtonWeb;
             newSessionButton = newSessionButtonWeb;
             sessionUi = sessionUiWeb;
             menuUi = menuUiWeb;
         }
-        restoreSessionButton.onClick.AddListener(RestoreSessionButtonCallback);
         newSessionButton.onClick.AddListener(NewSessionButtonCallback);
         sessionManager = FindObjectOfType<SessionManager>();
 
@@ -59,25 +55,10 @@ public class MenuManager : MonoBehaviour
             sessionUi.SetActive(true);
         }
         bool hasPrevSession = !string.IsNullOrEmpty(SessionManager.sessionId);
-        // restore session functionality is disabled/not implemented on webGL version.
-        restoreSessionButton.gameObject.SetActive(hasPrevSession && !isWeb);
-        
-    }
-
-    public void RestoreSessionButtonCallback()
-    {
-        sessionManager.RestoreSession();
-
-        sessionUi.SetActive(false);
-        menuUi.SetActive(true);
     }
     public void NewSessionButtonCallback()
     {
         sessionManager.NewSession();
-
-        //sessionUi.SetActive(false);
-        //menuUi.SetActive(true);
-
         // Directly transition to Form scene
         if (FindObjectOfType<CheckboxButton>().consentGiven)
         {

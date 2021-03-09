@@ -22,22 +22,18 @@ public class FormManager : MonoBehaviour
     private bool contrLangEmpty = false;
     private void Awake()
     {
+        localFormData = new FormData();
         EmptyFieldsPopup.SetActive(false);
 
         //ageInput.keyboardType = TouchScreenKeyboardType.NumberPad;
         ageInput.onValueChanged.AddListener(OnAgeChange);
-
         nativeLangInput.onValueChanged.AddListener(OnNativeLanguageChange);
         contributionLangInput.onValueChanged.AddListener(OnContributionLanguageChange);
-
         genderDropdown.onValueChanged.AddListener(OnGenderChange);
         profDropdown.onValueChanged.AddListener(OnProficiencyChange);
 
-        localFormData = new FormData();
-        localFormData.Print();
         OnAgeChange(ageInput.text);
         OnGenderChange(genderDropdown.value);
-
         OnNativeLanguageChange(nativeLangInput.text);
         OnContributionLanguageChange(contributionLangInput.text);
         OnProficiencyChange(profDropdown.value);

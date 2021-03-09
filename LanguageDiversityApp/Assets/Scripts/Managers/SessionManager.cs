@@ -4,7 +4,22 @@ using UnityEngine;
 
 public class SessionManager : MonoBehaviour
 {
-    static public string sessionId = string.Empty;
+    static public string sessionId
+    {
+        get
+        {
+            return sessionId;
+        }
+        private set { }
+    }
+    static public string sessionPath 
+    { 
+        get {
+           return Path.Combine(Application.persistentDataPath, sessionId);
+        } 
+        private set {}
+    }
+
     static public bool sessionOpen = false;
     private void Awake()
     {
@@ -26,29 +41,19 @@ public class SessionManager : MonoBehaviour
             Debug.Log("no prev session found");
         }
     }
-
-    public void RestoreSession()
-    {
-        // todo actually restore the state of the recordings and the form :/
-        Debug.LogFormat("Restoring previous session with id: {0}", sessionId);
-        DataManager.Instance.sessionId = sessionId;
-        sessionOpen = true;
-    }
     public void NewSession()
     {
-
-        string oldDir = Path.Combine(Application.persistentDataPath, sessionId);
+        string oldDir = sessionPath;
         if (Directory.Exists(oldDir))
         {
             Directory.Delete(oldDir, true);
         }
 
-        string newId = GenerateSessionId();
-        string dirPath = Path.Combine(Application.persistentDataPath, newId);
+        sessionId = GenerateSessionId();
+        string dirPath = sessionPath;
         Directory.CreateDirectory(dirPath);
 
-        DataManager.Instance.sessionId = newId;
-        PlayerPrefs.SetString("lastSession", newId);
+        PlayerPrefs.SetString("lastSession", sessionId);
         PlayerPrefs.Save();
         sessionOpen = true;
     }
