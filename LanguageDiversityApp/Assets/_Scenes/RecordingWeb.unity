@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 34283879}
   - component: {fileID: 34283878}
   m_Layer: 5
-  m_Name: To Menu
+  m_Name: To Menu button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -227,7 +227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.2716714, g: 0.28791884, b: 0.5188679, a: 1}
+  m_Color: {r: 0.67058825, g: 0.78431374, b: 0.8862745, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1186,7 +1186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1341,7 +1341,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 542413610}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -1537,7 +1537,7 @@ GameObject:
   - component: {fileID: 650297947}
   - component: {fileID: 650297946}
   m_Layer: 5
-  m_Name: Thanks
+  m_Name: Thanks text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1858,7 +1858,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.2716714, g: 0.28791884, b: 0.5188679, a: 1}
+  m_Color: {r: 0.20392157, g: 0.2901961, b: 0.36862746, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2073,8 +2073,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4284369460
+  m_fontColor: {r: 0.20392157, g: 0.2901961, b: 0.36862746, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2092,8 +2092,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 65
-  m_fontSizeBase: 65
+  m_fontSize: 70
+  m_fontSizeBase: 70
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2709,7 +2709,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.7924528, g: 0.25792095, b: 0.25792095, a: 1}
+  m_Color: {r: 0.76862746, g: 0.84313726, b: 0.92941177, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2763,7 +2763,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mobilePostAddress: https://coltekin.net/audio/uploadMobile.php
   webPostAdress: https://coltekin.net/audio/upload.php
-  sessionId: 
 --- !u!4 &1825105677
 Transform:
   m_ObjectHideFlags: 0
@@ -2825,7 +2824,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1895689238
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3083,11 +3082,11 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.2716714, g: 0.28791884, b: 0.5188679, a: 1}
-    m_HighlightedColor: {r: 0.3737985, g: 0.3979838, b: 0.754717, a: 1}
-    m_PressedColor: {r: 0.56181026, g: 0.5866369, b: 0.9528302, a: 1}
-    m_SelectedColor: {r: 0.2716714, g: 0.28791884, b: 0.5188679, a: 1}
-    m_DisabledColor: {r: 0.2716714, g: 0.28791884, b: 0.5188679, a: 1}
+    m_NormalColor: {r: 0.76862746, g: 0.84313726, b: 0.92941177, a: 1}
+    m_HighlightedColor: {r: 0.5176471, g: 0.69411767, b: 0.8509804, a: 1}
+    m_PressedColor: {r: 0.5176471, g: 0.69411767, b: 0.8509804, a: 1}
+    m_SelectedColor: {r: 0.5176471, g: 0.69411767, b: 0.8509804, a: 1}
+    m_DisabledColor: {r: 0.8301887, g: 0.7096211, b: 0.4503382, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -3171,7 +3170,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2092446564
 RectTransform:
   m_ObjectHideFlags: 0

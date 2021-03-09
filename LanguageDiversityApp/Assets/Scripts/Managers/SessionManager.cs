@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class SessionManager : MonoBehaviour
 {
+    static private string _sessionId;
     static public string sessionId
     {
         get
         {
-            return sessionId;
+            return _sessionId;
         }
-        private set { }
+        private set { _sessionId = value; }
     }
     static public string sessionPath 
     { 

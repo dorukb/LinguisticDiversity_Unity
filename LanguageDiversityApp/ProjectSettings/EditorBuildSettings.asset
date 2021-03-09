@@ -9,13 +9,13 @@ EditorBuildSettings:
     path: Assets/_Scenes/Menu.unity
     guid: cc17b9f69a2fd1442b66312aa1959e31
   - enabled: 1
-    path: Assets/_Scenes/Form.unity
+    path: Assets/_Scenes/NOT IN USE/Form.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/_Scenes/FormWeb.unity
     guid: 7cf8a9ec0681ab844ba0c75c81d90add
   - enabled: 1
-    path: Assets/_Scenes/Recording.unity
+    path: Assets/_Scenes/NOT IN USE/Recording.unity
     guid: 2c27e6b6e3690674abb28b0f0c428c74
   - enabled: 1
     path: Assets/_Scenes/RecordingWeb.unity
