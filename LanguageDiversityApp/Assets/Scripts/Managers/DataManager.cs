@@ -53,7 +53,7 @@ public class DataManager : MonoBehaviour
 #endif
 #if !UNITY_WEBGL
         saveData.formData = data;
-        string sessionFolder = Path.Combine(Application.persistentDataPath, sessionId);
+        string sessionFolder = Path.Combine(Application.persistentDataPath, SessionManager.sessionId);
         string filePath= Path.Combine(sessionFolder, "form.json");
         File.WriteAllText(filePath, JsonUtility.ToJson(data));
         endCallback?.Invoke();

@@ -15,8 +15,8 @@ public class RecordAudio : MonoBehaviour
     {
 
 #if UNITY_WEBGL && !UNITY_EDITOR
-        MicrophoneWeb.StartRecording(DataManager.Instance.sessionId, recordingName);
-        Debug.Log("SENT RECORDING REQUEST TO JS SIDE with id: " + DataManager.Instance.sessionId);
+        MicrophoneWeb.StartRecording(SessionManager.sessionId, recordingName);
+        Debug.Log("SENT RECORDING REQUEST TO JS SIDE with id: " + SessionManager.sessionId);
         return null;
 #endif
 #if !UNITY_WEBGL || UNITY_EDITOR
