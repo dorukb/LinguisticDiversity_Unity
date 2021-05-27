@@ -16,7 +16,11 @@ public class SessionManager : MonoBehaviour
     static public string sessionPath 
     { 
         get {
-           return Path.Combine(Application.persistentDataPath, sessionId);
+            if (!String.IsNullOrEmpty(sessionId))
+            {
+                return Path.Combine(Application.persistentDataPath, sessionId);
+            }
+            else return Application.persistentDataPath;
         } 
         private set {}
     }
@@ -24,6 +28,7 @@ public class SessionManager : MonoBehaviour
     static public bool sessionOpen = false;
     private void Awake()
     {
+        sessionId = "";
         if (!string.IsNullOrEmpty(PlayerPrefs.GetString("lastSession")))
         { // prev session exists
             sessionId = PlayerPrefs.GetString("lastSession");
@@ -34,7 +39,6 @@ public class SessionManager : MonoBehaviour
                 Debug.Log("session id was found but no save folder?.");
                 PlayerPrefs.SetString("lastSession", string.Empty);
                 PlayerPrefs.Save();
-                sessionId = "";
             }
         }
         else
@@ -44,13 +48,13 @@ public class SessionManager : MonoBehaviour
     }
     public void NewSession()
     {
+        sessionId = GenerateSessionId();
         string oldDir = sessionPath;
         if (Directory.Exists(oldDir))
         {
             Directory.Delete(oldDir, true);
         }
 
-        sessionId = GenerateSessionId();
         string dirPath = sessionPath;
         Directory.CreateDirectory(dirPath);
 
