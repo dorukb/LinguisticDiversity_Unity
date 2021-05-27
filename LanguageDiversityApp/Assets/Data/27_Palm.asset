@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 27_Palm
   m_EditorClassIdentifier: 
   keyword: palm
-  sprite: {fileID: 21300000, guid: e66380454fbcda54b9111a1c660cfbb4, type: 3}
+  sprite: {fileID: 21300000, guid: 04987b53868ed9b4fac7cd3bced3c97a, type: 3}

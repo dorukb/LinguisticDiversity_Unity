@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 32_Heel
   m_EditorClassIdentifier: 
   keyword: heel
-  sprite: {fileID: 21300000, guid: 5f23f5261557fb8408ff42d87682c7bf, type: 3}
+  sprite: {fileID: 21300000, guid: a5ae283ec68d8d746972b671f2f5268d, type: 3}

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b563b6ee85c63e47a6a2e269da8c7c8, type: 3}
-  m_Name: 09_Face
+  m_Name: 07_Lips
   m_EditorClassIdentifier: 
-  keyword: face
-  sprite: {fileID: 21300000, guid: 26769ee4a16ca4e4aae743f9471aeb9a, type: 3}
+  keyword: lip
+  sprite: {fileID: 21300000, guid: 2b4a2c5d1502fa44abc43c9bcda39c88, type: 3}

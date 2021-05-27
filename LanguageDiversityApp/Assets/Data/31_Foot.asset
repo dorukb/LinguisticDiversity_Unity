@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 31_Foot
   m_EditorClassIdentifier: 
   keyword: foot
-  sprite: {fileID: 21300000, guid: 2bf706b31ba5a9d43a29249f4f664c7a, type: 3}
+  sprite: {fileID: 21300000, guid: 7c2f2845e18529445b79e76223681d81, type: 3}

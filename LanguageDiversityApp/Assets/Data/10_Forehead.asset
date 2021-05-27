@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 10_Forehead
   m_EditorClassIdentifier: 
   keyword: forehead
-  sprite: {fileID: 21300000, guid: fe0e27c227e7ac54a9acc4f855d459ea, type: 3}
+  sprite: {fileID: 21300000, guid: 35efe0c3e66615b4fbbdf06f002eec3c, type: 3}

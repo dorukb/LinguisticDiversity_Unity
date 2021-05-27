@@ -4,6 +4,11 @@ public class CheckboxButton : MonoBehaviour
 {
     public GameObject selectedImage;
     public bool consentGiven = false;
+
+    private void Start()
+    {
+        selectedImage.SetActive(false);
+    }
     public void ToggleCross()
     {
         if (consentGiven)

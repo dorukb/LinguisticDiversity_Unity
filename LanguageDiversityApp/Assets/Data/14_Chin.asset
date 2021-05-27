@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 14_Chin
   m_EditorClassIdentifier: 
   keyword: chin
-  sprite: {fileID: 21300000, guid: 033f6b9b6ddad7c408a4367cb4445a3c, type: 3}
+  sprite: {fileID: 21300000, guid: 69ebaf02a9fb3b5489c2c1edd6fc7c60, type: 3}
