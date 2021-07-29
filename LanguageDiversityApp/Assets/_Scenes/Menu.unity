@@ -4321,7 +4321,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Welcome! This is a non-profit academic project about linguistic diversity.
     First you will see an optional form, then on the next page, you\u2019ll see a
-    pictorial representation of a word. What do you call it? Say it out loud."
+    pictorial representation of a word. What do you call it? Say it out loud.\n\nDo
+    you consent to your personal information and voice data to be used as part of
+    our research?"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4390,12 +4392,12 @@ MonoBehaviour:
   m_margin: {x: 30.812225, y: 68.739975, z: 30.812323, w: 72.798546}
   m_textInfo:
     textComponent: {fileID: 2057435092}
-    characterCount: 221
+    characterCount: 317
     spriteCount: 0
-    spaceCount: 38
-    wordCount: 39
+    spaceCount: 57
+    wordCount: 57
     linkCount: 0
-    lineCount: 4
+    lineCount: 6
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
