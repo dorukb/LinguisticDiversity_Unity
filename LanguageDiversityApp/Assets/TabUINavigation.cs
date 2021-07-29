@@ -20,7 +20,7 @@ public class TabUINavigation : MonoBehaviour
     }
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyUp(KeyCode.Tab))
         {
             selectedIndex = (selectedIndex + 1) % selectableElements.Count;
             var selectedElm = selectableElements[selectedIndex];

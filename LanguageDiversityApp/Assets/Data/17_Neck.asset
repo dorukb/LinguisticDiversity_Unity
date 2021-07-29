@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 17_Neck
   m_EditorClassIdentifier: 
   keyword: neck
-  sprite: {fileID: 21300000, guid: 0919151d56f2e8d4f924659a2eb22b9a, type: 3}
+  sprite: {fileID: 21300000, guid: 93a184ef53ff5ef4ab27e23285a0584d, type: 3}

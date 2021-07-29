@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 05_Tooth
   m_EditorClassIdentifier: 
   keyword: tooth
-  sprite: {fileID: 21300000, guid: 5179976235604e4429e1d560449cf36a, type: 3}
+  sprite: {fileID: 21300000, guid: 583bde71313c5214d9f5d16ae750d190, type: 3}

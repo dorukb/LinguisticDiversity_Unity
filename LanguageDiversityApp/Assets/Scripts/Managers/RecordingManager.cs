@@ -18,6 +18,7 @@ public class RecordingManager : MonoBehaviour
 
     public GameObject recordingPanel;
     public GameObject endPanel;
+    public GameObject endPanelContinueButton;
 
     private RecordAudio recorder;
     private int wordIndex;
@@ -134,7 +135,10 @@ public class RecordingManager : MonoBehaviour
     {
         recordingPanel.SetActive(false);
         endPanel.SetActive(true);
-        //we are done, send all recorded audio to data manager for saving.
+        bool canContinueLater = wordIndex < wordImagePairs.Count;
+        endPanelContinueButton.SetActive(canContinueLater);
+
+            //we are done, send all recorded audio to data manager for saving.
 #if !UNITY_WEBGL || UNITY_EDITOR
         foreach (var recordingPair in savedRecordings)
         {
@@ -148,6 +152,21 @@ public class RecordingManager : MonoBehaviour
             DataManager.Instance.AddRecordingData(recordingId, recording);
         }
 #endif
+    }
+    public void ContinueRecordingFromLast()
+    {
+        // Continue recording from the skipped position
+        if(wordIndex < wordImagePairs.Count)
+        {
+            endPanel.SetActive(false);
+            recordingPanel.SetActive(true);
+        }
+        else
+        {
+            // if recorded all, maybe create new word image pairs?
+            // currently does nothing.
+        }
+
     }
 
     // Called by the submit button

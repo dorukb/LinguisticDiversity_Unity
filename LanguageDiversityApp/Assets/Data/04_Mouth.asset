@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 04_Mouth
   m_EditorClassIdentifier: 
   keyword: mouth
-  sprite: {fileID: 21300000, guid: ea4dc65974bcb0d479502a6b20f740ae, type: 3}
+  sprite: {fileID: 21300000, guid: bbde6bfc896720143a281b0409ebfecb, type: 3}

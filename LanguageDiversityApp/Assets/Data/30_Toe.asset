@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 30_Toe
   m_EditorClassIdentifier: 
   keyword: toe
-  sprite: {fileID: 21300000, guid: 99f50a3500227344198d3cf252950f5a, type: 3}
+  sprite: {fileID: 21300000, guid: 0f69f8a92cf23ae428f7dd5d0126d483, type: 3}

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 12_Moustache
   m_EditorClassIdentifier: 
   keyword: moustache
-  sprite: {fileID: 21300000, guid: 3e44f5a5a41a7bb4f9b3b6a6012e2e24, type: 3}
+  sprite: {fileID: 21300000, guid: d20590b68e6fee345accf5ff582d34c4, type: 3}

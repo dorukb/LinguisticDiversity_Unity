@@ -80,6 +80,7 @@ public class DataManager : MonoBehaviour
         WWWForm form = new WWWForm();
         string sessionDirectory = SessionManager.sessionPath;
         form.AddField("id", SessionManager.sessionId);
+        Debug.Log(JsonUtility.ToJson(data));
         form.AddField("form", JsonUtility.ToJson(data));
 
         UnityWebRequest req = UnityWebRequest.Post(webPostAdress, form);
