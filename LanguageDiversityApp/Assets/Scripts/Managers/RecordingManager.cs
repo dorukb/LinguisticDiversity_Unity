@@ -105,6 +105,10 @@ public class RecordingManager : MonoBehaviour
         advanceButton.SetActive(true);
         recordingVisual.SetActive(true);
     }
+    public int GetRemainingImageCount()
+    {
+        return wordImagePairs.Count - (wordIndex + 1);
+    }
     public void NextImage()
     {
         wordIndex++;
