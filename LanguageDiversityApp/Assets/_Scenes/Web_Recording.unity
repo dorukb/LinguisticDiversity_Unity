@@ -809,6 +809,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 996987183cfe79647aeb9fcd94733a8e, type: 2}
   - {fileID: 11400000, guid: 273b11a0da0665d449a0dd2211d499a6, type: 2}
   - {fileID: 11400000, guid: 4662f2f3c7e13834ebd7cab4bfd312b6, type: 2}
+  - {fileID: 11400000, guid: 670cb0e76d5af984bb1c05b27a81b666, type: 2}
+  - {fileID: 11400000, guid: e1e68fc00c92d7b46ba7685a0b6460cf, type: 2}
+  - {fileID: 11400000, guid: f2bcfc8e012bcfa4a940433ae914d2f4, type: 2}
+  - {fileID: 11400000, guid: a34b8fe3be03529478253871fd36f889, type: 2}
+  - {fileID: 11400000, guid: 873c1030ae3fcbb459f2e844c2d682aa, type: 2}
+  - {fileID: 11400000, guid: 6b60bece333718b4ebe8ba2a0099e646, type: 2}
   recordingVisual: {fileID: 2021048313}
   imageShown: {fileID: 717584486}
   discardButton: {fileID: 1302559645}

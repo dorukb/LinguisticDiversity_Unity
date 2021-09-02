@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 44_Stomach
   m_EditorClassIdentifier: 
   keyword: stomach
-  sprite: {fileID: 21300000, guid: 5fccbea98b8662b47b15e3ae5f7fe60a, type: 3}
+  sprite: {fileID: 21300000, guid: b7f1b044d2d54ec488f1048333423dc2, type: 3}

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 16_Throat
   m_EditorClassIdentifier: 
   keyword: throat
-  sprite: {fileID: 21300000, guid: 90184790355c0e34e9e85b926434874a, type: 3}
+  sprite: {fileID: 21300000, guid: 06a264e9fc0d16943a1bd5427b39660b, type: 3}

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 08_Cheek
   m_EditorClassIdentifier: 
   keyword: cheek
-  sprite: {fileID: 21300000, guid: 278c19498ccde474a94617c1f128013a, type: 3}
+  sprite: {fileID: 21300000, guid: e8a30eb9a2c13954e8b5ef634dc1810b, type: 3}

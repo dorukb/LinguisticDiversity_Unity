@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 36_Body
   m_EditorClassIdentifier: 
   keyword: body
-  sprite: {fileID: 21300000, guid: bc6641949e15094429cd7fa7548a8521, type: 3}
+  sprite: {fileID: -1880120661550918566, guid: 0d5f73207cf3c964dbc0a9b90560e9d7, type: 3}

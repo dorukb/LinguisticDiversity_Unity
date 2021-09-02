@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 43_Heart
   m_EditorClassIdentifier: 
   keyword: heart
-  sprite: {fileID: 21300000, guid: f233ddf737ca56848b13bbb7953bc3e1, type: 3}
+  sprite: {fileID: 21300000, guid: f6837c2cd8a9c3f4fae0a227a94382bd, type: 3}
