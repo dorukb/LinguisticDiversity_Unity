@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SessionManager : MonoBehaviour
 {
-    static private string _sessionId;
+    static private string _sessionId = "";
     static public string sessionId
     {
         get
@@ -25,44 +25,27 @@ public class SessionManager : MonoBehaviour
         private set {}
     }
 
-    static public bool sessionOpen = false;
     private void Awake()
     {
-        sessionId = "";
-        if (!string.IsNullOrEmpty(PlayerPrefs.GetString("lastSession")))
-        { // prev session exists
-            sessionId = PlayerPrefs.GetString("lastSession");
-            Debug.Log("Previous session id is:" + sessionId);
-            string dirPath = Path.Combine(Application.persistentDataPath, sessionId);
-            if (!Directory.Exists(dirPath))
-            {
-                Debug.Log("session id was found but no save folder?.");
-                PlayerPrefs.SetString("lastSession", string.Empty);
-                PlayerPrefs.Save();
-            }
-        }
-        else
+        if (string.IsNullOrEmpty(_sessionId))
         {
-            Debug.Log("no prev session found");
+            NewSession();
         }
     }
-    public void NewSession()
+    private void NewSession()
     {
         sessionId = GenerateSessionId();
+        RemoveOldSaveDirectoryIfExists();
+        Directory.CreateDirectory(sessionPath);
+    }
+    private void RemoveOldSaveDirectoryIfExists()
+    {
         string oldDir = sessionPath;
         if (Directory.Exists(oldDir))
         {
             Directory.Delete(oldDir, true);
         }
-
-        string dirPath = sessionPath;
-        Directory.CreateDirectory(dirPath);
-
-        PlayerPrefs.SetString("lastSession", sessionId);
-        PlayerPrefs.Save();
-        sessionOpen = true;
     }
-
     private string GenerateSessionId()
     {
         return Guid.NewGuid().ToString();

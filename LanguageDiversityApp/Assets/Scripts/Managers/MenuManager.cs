@@ -3,40 +3,25 @@ using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
-    // for mobile UI
-    [Header("Mobile UI Fields")]
-    public Button newSessionButton;
-    public GameObject sessionUi;
-
-    private SessionManager sessionManager;
+    public Button startButton;
+    private CheckboxButton checkbox;
 
     void Start()
     {
-        newSessionButton.onClick.AddListener(NewSessionButtonCallback);
-        sessionManager = FindObjectOfType<SessionManager>();
-
-        if (SessionManager.sessionOpen)
-        {
-            sessionUi.SetActive(true);
-        }
-        bool hasPrevSession = !string.IsNullOrEmpty(SessionManager.sessionId);
+        startButton.onClick.AddListener(StartButtonCallback);
+        checkbox = FindObjectOfType<CheckboxButton>();
+        if (checkbox == null) 
+            Debug.LogError("Checkbox button script reference is null");
     }
-    public void NewSessionButtonCallback()
+    public void StartButtonCallback()
     {
-        sessionManager.NewSession();
-        // Directly transition to Form scene
-        if (FindObjectOfType<CheckboxButton>().consentGiven)
+        if (checkbox.consentGiven)
         {
-            FindObjectOfType<SceneTransition>().LoadFormScene();
+             FindObjectOfType<SceneTransition>().LoadFormScene();
         }
         else
         {
             Debug.Log("please first give consent.");
         }
-    }
-
-    public void SendPreviouslySavedData()
-    {
-        DataManager.Instance.SendDataToServer();
     }
 }

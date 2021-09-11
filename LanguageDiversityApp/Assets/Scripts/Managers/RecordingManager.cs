@@ -82,7 +82,12 @@ public class RecordingManager : MonoBehaviour
 
     public void DiscardRecording()
     {
-        savedRecordings.Remove(currentRecordingId);
+        bool succesful = savedRecordings.Remove(currentRecordingId);
+        if (!succesful)
+        {
+            Debug.LogError("Unable to discard recording with id: " + currentRecordingId);
+        }
+               
         currentRecording = null;
         currentRecordingId = "";
 
@@ -146,15 +151,14 @@ public class RecordingManager : MonoBehaviour
 #if !UNITY_WEBGL || UNITY_EDITOR
         foreach (var recordingPair in savedRecordings)
         {
-            if(recordingPair.Value == null)
+            if(recordingPair.Value != null)
             {
-                Debug.Log("This was saved on webGL side. skip it.");
-                continue;
+                string recordingId = recordingPair.Key;
+                AudioClip recording = recordingPair.Value;
+                DataManager.Instance.AddRecordingData(recordingId, recording);
             }
-            string recordingId = recordingPair.Key;
-            AudioClip recording = recordingPair.Value;
-            DataManager.Instance.AddRecordingData(recordingId, recording);
         }
+        SubmitRecordings();
 #endif
     }
     public void ContinueRecordingFromLast()

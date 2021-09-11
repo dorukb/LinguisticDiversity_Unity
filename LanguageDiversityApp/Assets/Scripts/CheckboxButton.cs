@@ -7,6 +7,7 @@ public class CheckboxButton : MonoBehaviour
 
     private void Start()
     {
+        consentGiven = false;
         selectedImage.SetActive(false);
     }
     public void ToggleCross()

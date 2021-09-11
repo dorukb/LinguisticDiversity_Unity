@@ -43,12 +43,18 @@ public static class SavWav
 
 	public static bool Save(string filePath, AudioClip clip)
 	{
+		if (clip.length <= 0)
+		{
+			Debug.LogErrorFormat("Clip named: {0} is empty.", filePath);
+			return false;
+		}
+
 		if (!filePath.ToLower().EndsWith(".wav"))
 		{
 			filePath += ".wav";
 		}
 
-		clip = TrimSilence(clip, 0.01f);
+		clip = TrimSilence(clip, 0.001f);
 
 		// Make sure directory exists if user is saving to sub dir.
 		ClipData clipdata = new ClipData();

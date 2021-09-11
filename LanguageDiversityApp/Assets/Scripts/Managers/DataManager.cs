@@ -107,20 +107,21 @@ public class DataManager : MonoBehaviour
             byte[] bytes = File.ReadAllBytes(filePath);
 
             string fileName = Path.GetFileName(filePath);
+            Debug.Log("add file: " + fileName);
             form.AddBinaryData("files[]", bytes, fileName);
         }
-
-        UnityWebRequest req = UnityWebRequest.Post(mobilePostAddress, form);        
+        UnityWebRequest req = UnityWebRequest.Post(mobilePostAddress, form);
+        Debug.Log("send the web request now. ts: " + Time.realtimeSinceStartup);
         yield return req.SendWebRequest();
 
         if (req.isHttpError || req.isNetworkError)
             Debug.Log(req.error);
         else
-            Debug.Log("Uploaded " + recordingPaths.Length + " audio files Successfully");
+            Debug.Log("Uploaded " + recordingPaths.Length + " audio files Successfully. TS: " + Time.realtimeSinceStartup);
 
         if (req.isDone)
         {
-            Debug.Log("req is done");
+            Debug.Log("req is done. TS: " + Time.realtimeSinceStartup);
 
         }
         endCallback?.Invoke();
