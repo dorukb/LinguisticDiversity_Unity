@@ -421,7 +421,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &142569407
 MonoBehaviour:
@@ -818,7 +818,7 @@ MonoBehaviour:
   recordingVisual: {fileID: 2021048313}
   imageShown: {fileID: 717584486}
   discardButton: {fileID: 1302559645}
-  advanceButton: {fileID: 731912365}
+  advanceButton: {fileID: 731912367}
   statusText: {fileID: 264406041}
   recordingNameText: {fileID: 148207090}
   recordingCounterText: {fileID: 620563865}
@@ -1120,7 +1120,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &542413610
 GameObject:
@@ -1658,18 +1658,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 731912368}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 291418212}
-        m_MethodName: NextImage
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &731912368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2777,7 +2766,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1478107029
 GameObject:
@@ -3014,7 +3003,7 @@ PrefabInstance:
     - target: {fileID: 3435193671653102610, guid: e416c53ddad316141ab2a5c7cc93728f,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3435193671653102610, guid: e416c53ddad316141ab2a5c7cc93728f,
         type: 3}
@@ -3227,7 +3216,7 @@ RectTransform:
   m_Children:
   - {fileID: 303331407}
   m_Father: {fileID: 2141670794}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -3363,10 +3352,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1825105675}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1485.8195, y: -736.79144, z: 0}
-  m_LocalScale: {x: 2.6367695, y: 2.6367695, z: 2.5911083}
+  m_LocalPosition: {x: 0.000061035156, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 2141670794}
+  m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1828123863
@@ -3397,7 +3386,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1972198220
 GameObject:
@@ -3494,7 +3483,7 @@ RectTransform:
   - {fileID: 1612213397}
   - {fileID: 449809363}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3661,7 +3650,7 @@ RectTransform:
   - {fileID: 920631031}
   - {fileID: 1302559646}
   m_Father: {fileID: 2141670794}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -3701,7 +3690,7 @@ RectTransform:
   m_Children:
   - {fileID: 264406040}
   m_Father: {fileID: 2141670794}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -3855,8 +3844,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "You still have $$ unrecorded images. \n\nAre you sure you want to finish
-    recording?"
+  m_text: "You still have $$ unrecorded images. \n\nAre you sure you want to stop
+    recording now?"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3968,7 +3957,7 @@ GameObject:
   - component: {fileID: 2141670796}
   - component: {fileID: 2141670795}
   m_Layer: 5
-  m_Name: Main Panel
+  m_Name: Recording UI Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3988,7 +3977,6 @@ RectTransform:
   - {fileID: 717584485}
   - {fileID: 731912366}
   - {fileID: 620563864}
-  - {fileID: 1825105677}
   - {fileID: 2086117878}
   - {fileID: 2021048314}
   - {fileID: 1617568417}

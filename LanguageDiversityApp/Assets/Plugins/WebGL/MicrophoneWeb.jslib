@@ -89,9 +89,13 @@ var LibraryMyPlugin = {
     
   },
 
-  SaveCurrentRecording: function()
+  SubmitCurrentRecording: function()
   {
-    if(recording.isRecording || recording.recordedChunks == []) {console.log("No recording to save."); return;}
+    if(recording.recordedChunks == []) 
+    {
+        console.log("No recording to save."); 
+        return;
+    }
 
     this.blob = new Blob(recording.recordedChunks, { 'type': recording.mime });
     unityInstance.SendMessage('JavaScriptHook', 'PrintMessage', 'posting to server side.');

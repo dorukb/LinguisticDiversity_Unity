@@ -13,6 +13,8 @@ public class DataManager : MonoBehaviour
     public string mobilePostAddress = "https://coltekin.net/audio/uploadMobile.php";
     public string webPostAdress = "https://coltekin.net/audio/upload.php";
 
+    private Coroutine uploadCR;
+
     #region SingletonAndDontDestroyBehaviour
     void Awake()
     {
@@ -33,7 +35,10 @@ public class DataManager : MonoBehaviour
     {
 #if UNITY_WEBGL
         // Directly send form data since the audio data will be send from the web side.
-        StartCoroutine(UploadFormDataWEBGL(endCallback, data));
+        if(uploadCR == null)
+        {
+            uploadCR = StartCoroutine(UploadFormDataWEBGL(endCallback, data));
+        }
 #endif
 #if !UNITY_WEBGL
         // Write to session folder, will be sent later together with all the audio files.
@@ -71,6 +76,8 @@ public class DataManager : MonoBehaviour
             Debug.Log(req.error);
         else
             Debug.Log("Uploaded successfully");
+
+        uploadCR = null;
         endCallback?.Invoke();
     }
     IEnumerator UploadAllFiles(Action endCallback)

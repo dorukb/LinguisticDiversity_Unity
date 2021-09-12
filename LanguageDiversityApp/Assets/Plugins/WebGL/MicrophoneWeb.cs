@@ -12,5 +12,5 @@ public static class MicrophoneWeb
     public static extern void PlayCurrentRecording();
 
     [DllImport("__Internal")]
-    public static extern void SaveCurrentRecording();
+    public static extern void SubmitCurrentRecording();
 }

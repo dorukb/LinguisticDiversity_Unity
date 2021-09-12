@@ -8,11 +8,9 @@ public class RecordingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     // if pointer Down happens during this time, no cancelletion occurs.
     public float toleranceDuration = 0.5f;
 
-
     RecordingManager manager;
-
-    bool pointerDown = false;
     Coroutine stoppingCR;
+    bool pointerDownFlag = false;
 
     void Awake()
     {
@@ -20,13 +18,12 @@ public class RecordingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     }
     public void OnPointerDown(PointerEventData eventData)
     {
-        pointerDown = true;
+        pointerDownFlag = true;
         manager.StartRecording();
     }
-
     public void OnPointerUp(PointerEventData eventData)
     {
-        pointerDown = false;
+        pointerDownFlag = false;
 
         if(stoppingCR != null)
         {
@@ -38,13 +35,13 @@ public class RecordingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     {
         yield return new WaitForSeconds(toleranceDuration);
 
-        if (!pointerDown)
+        if (!pointerDownFlag)
         {
             manager.StopRecording();
         }
         else
         {
-            // pointer down occured during our wait, do not stop recording.
+            // pointer down occurred during our wait, do not stop recording.
         }
     }
 }
