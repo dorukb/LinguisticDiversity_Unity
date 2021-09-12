@@ -2,24 +2,11 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static RecordingUIController;
 
 public class RecordingManager : MonoBehaviour
 {
     public List<Word> wordImagePairs;
-
-    [Header("UI References")]
-    public GameObject recordingVisual;
-    public Image imageShown;
-    public GameObject discardButton;
-    public Button advanceButton;
-    public TextMeshProUGUI statusText;
-    public TextMeshProUGUI recordingNameText;
-    public TextMeshProUGUI recordingCounterText;
-
-    public GameObject recordingPanel;
-    public GameObject endPanel;
-    public GameObject endPanelContinueButton;
-
     public RecordingUIController uiController;
 
     private RecordAudio recorder;
@@ -29,17 +16,7 @@ public class RecordingManager : MonoBehaviour
     private bool isRecording = false;
 
     private Dictionary<string, AudioClip> savedRecordings;
-    public enum RecordingState
-    {
-        Waiting,
-        Recording,
-        Recorded,
-        Discarded
-    }
-    private void Awake()
-    {
-        advanceButton.onClick.AddListener(NextImage);
-    }
+
     private void Start()
     {
         recorder = FindObjectOfType<RecordAudio>();
@@ -48,7 +25,9 @@ public class RecordingManager : MonoBehaviour
         //shuffle the words for more uniform data collection
         wordImagePairs.Shuffle();
         wordIndex = 0;
-        UpdateRecordingUI(RecordingState.Waiting);
+
+        if (uiController == null) uiController = FindObjectOfType<RecordingUIController>();
+        uiController.OnRecordingStateChange(RecordingState.Waiting);
     }
 
     public void StartRecording()
@@ -66,7 +45,7 @@ public class RecordingManager : MonoBehaviour
         currentRecording = recorder.Record(wordImagePairs[wordIndex].keyword);
         currentRecordingId = wordImagePairs[wordIndex].keyword;
 
-        UpdateRecordingUI(RecordingState.Recording);
+        uiController.OnRecordingStateChange(RecordingState.Recording);
     }
 
 
@@ -79,7 +58,7 @@ public class RecordingManager : MonoBehaviour
 
 #if !UNITY_WEBGL || UNITY_EDITOR
         // When not WebGL, can directly update UI and allow advancing as no upload/async operation is happening.
-        UpdateRecordingUI(RecordingState.Recorded);
+        uiController.OnRecordingStateChange(RecordingState.Recorded);
 #endif
         if(currentRecording != null)
         {
@@ -97,7 +76,7 @@ public class RecordingManager : MonoBehaviour
         currentRecording = null;
         currentRecordingId = "";
 
-        UpdateRecordingUI(RecordingState.Discarded);
+        uiController.OnRecordingStateChange(RecordingState.Discarded);
     }
     public void PlayCurrentRecording()
     {
@@ -112,11 +91,7 @@ public class RecordingManager : MonoBehaviour
         // Case for WebGL versions. 
         // Since the audio processing on the browser side is async and out of unity's control, we require this callback.
         // now we can advance to the next item safely, without losing data.
-        UpdateRecordingUI(RecordingState.Recorded);
-    }
-    public int GetRemainingImageCount()
-    {
-        return wordImagePairs.Count - (wordIndex + 1);
+        uiController.OnRecordingStateChange(RecordingState.Recorded);
     }
     // Called by next button
     public void NextImage()
@@ -135,17 +110,14 @@ public class RecordingManager : MonoBehaviour
 #endif
             currentRecording = null;
             currentRecordingId = "";
-            UpdateRecordingUI(RecordingState.Waiting);
+            uiController.OnRecordingStateChange(RecordingState.Waiting);
         }
        
     }
     public void FinishRecordingPhase()
     {
-        recordingPanel.SetActive(false);
-        endPanel.SetActive(true);
-
         bool canContinueLater = wordIndex < wordImagePairs.Count;
-        endPanelContinueButton.SetActive(canContinueLater);
+        uiController.ShowEndPanel(canContinueLater);
 
         //we are done, send all recorded audio to data manager for saving.
 #if !UNITY_WEBGL || UNITY_EDITOR
@@ -166,8 +138,7 @@ public class RecordingManager : MonoBehaviour
         // Continue recording from the skipped position
         if(wordIndex < wordImagePairs.Count)
         {
-            endPanel.SetActive(false);
-            recordingPanel.SetActive(true);
+            uiController.ShowRecordingPanel();
         }
         else
         {
@@ -175,6 +146,23 @@ public class RecordingManager : MonoBehaviour
             // currently does nothing.
         }
     }
+    public Word GetCurrentWord()
+    {
+        return wordImagePairs[wordIndex];
+    }
+    public int GetCurrentImageIndex()
+    {
+        return wordIndex;
+    }
+    public int GetTotalImageCount()
+    {
+        return wordImagePairs.Count;
+    }
+    public int GetRemainingImageCount()
+    {
+        return wordImagePairs.Count - (wordIndex + 1);
+    }
+
     // Called by Start Again Button
     public void LoadMenuScene()
     {
@@ -188,51 +176,5 @@ public class RecordingManager : MonoBehaviour
         }
         // TODO: Also handle failed case and give option to retry.
         );
-    }
-    private void UpdateRecordingUI(RecordingState visualState)
-    {
-        switch (visualState)
-        {
-            case RecordingState.Waiting:
-
-                discardButton.SetActive(false);
-                advanceButton.gameObject.SetActive(true);
-                recordingVisual.SetActive(false);
-                statusText.text = "Hold to Record";
-                recordingNameText.text = "";
-
-                imageShown.sprite = wordImagePairs[wordIndex].sprite;
-                recordingCounterText.text = (wordIndex + 1).ToString() + " / " + wordImagePairs.Count;
-                break;
-
-            case RecordingState.Recording:
-
-                discardButton.SetActive(false);
-                advanceButton.gameObject.SetActive(false);
-                recordingVisual.SetActive(false);
-                statusText.text = "Recording...";
-                recordingNameText.text = "";
-                break;
-
-            case RecordingState.Recorded:
-
-                discardButton.SetActive(true);
-                advanceButton.gameObject.SetActive(true);
-                recordingVisual.SetActive(true);
-                statusText.text = "Hold to Record";
-                recordingNameText.text = currentRecordingId;
-                break;
-
-            case RecordingState.Discarded:
-
-                discardButton.SetActive(false);
-                advanceButton.gameObject.SetActive(true);
-                recordingVisual.SetActive(false);
-                statusText.text = "Hold to Record Again.";
-                recordingNameText.text = "";
-                break;
-            default:
-                break;
-        }
     }
 }
