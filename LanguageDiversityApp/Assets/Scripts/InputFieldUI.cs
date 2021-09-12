@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine.UI;
 
-public class InputFieldVisual : MonoBehaviour
+public class InputFieldUI : MonoBehaviour
 {
     public TextMeshProUGUI label;
     public Image fieldBackground;

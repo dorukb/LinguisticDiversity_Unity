@@ -13,7 +13,6 @@ public class DataManager : MonoBehaviour
     public string mobilePostAddress = "https://coltekin.net/audio/uploadMobile.php";
     public string webPostAdress = "https://coltekin.net/audio/upload.php";
 
-    public SaveData saveData = new SaveData();
     #region SingletonAndDontDestroyBehaviour
     void Awake()
     {
@@ -29,32 +28,16 @@ public class DataManager : MonoBehaviour
         }
 
     }
-    private void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-    private void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-
-    }
     #endregion
-
-    public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        //Maybe Load() from the prev recordings from disk.
-        saveData.recordingData = new List<RecordingData>();
-    }
     public void SaveFormData(FormData data, Action endCallback)
     {
 #if UNITY_WEBGL
-        //directly send form data since the audio data will be send from the web side anyways.
-        StartCoroutine(UploadFormData(endCallback, data));
+        // Directly send form data since the audio data will be send from the web side.
+        StartCoroutine(UploadFormDataWEBGL(endCallback, data));
 #endif
 #if !UNITY_WEBGL
-        saveData.formData = data;
-        string sessionFolder = Path.Combine(Application.persistentDataPath, SessionManager.sessionId);
-        string filePath= Path.Combine(sessionFolder, "form.json");
+        // Write to session folder, will be sent later together with all the audio files.
+        string filePath = Path.Combine(SessionManager.sessionPath, "form.json");
         File.WriteAllText(filePath, JsonUtility.ToJson(data));
         endCallback?.Invoke();
 #endif
@@ -64,8 +47,7 @@ public class DataManager : MonoBehaviour
         float[] samples = new float[clip.samples * clip.channels];
         clip.GetData(samples, 0);
 
-        string sessionFolder = SessionManager.sessionPath;
-        string filePath = Path.Combine(sessionFolder, id);
+        string filePath = Path.Combine(SessionManager.sessionPath, id);
         Debug.Log("saving audio to: " + filePath);
         SavWav.Save(filePath, clip);
     }
@@ -75,12 +57,11 @@ public class DataManager : MonoBehaviour
         Debug.Log("will send previously saved data to web backend");
         StartCoroutine(UploadAllFiles(endCallback));
     }
-    IEnumerator UploadFormData(Action endCallback, FormData data)
+    IEnumerator UploadFormDataWEBGL(Action endCallback, FormData data)
     {
         WWWForm form = new WWWForm();
         string sessionDirectory = SessionManager.sessionPath;
         form.AddField("id", SessionManager.sessionId);
-        Debug.Log(JsonUtility.ToJson(data));
         form.AddField("form", JsonUtility.ToJson(data));
 
         UnityWebRequest req = UnityWebRequest.Post(webPostAdress, form);
@@ -94,22 +75,7 @@ public class DataManager : MonoBehaviour
     }
     IEnumerator UploadAllFiles(Action endCallback)
     {
-        WWWForm form = new WWWForm();
-        string sessionDirectory = SessionManager.sessionPath;
-
-        // Does not use any save file, directly gets all audio files associated with this session.
-        string[] recordingPaths = Directory.GetFiles(sessionDirectory);
-        form.AddField("id", SessionManager.sessionId);
-
-        foreach(string filePath in recordingPaths)
-        {
-            File.OpenRead(filePath);
-            byte[] bytes = File.ReadAllBytes(filePath);
-
-            string fileName = Path.GetFileName(filePath);
-            Debug.Log("add file: " + fileName);
-            form.AddBinaryData("files[]", bytes, fileName);
-        }
+        WWWForm form = AddAllRecordingsToForm();
         UnityWebRequest req = UnityWebRequest.Post(mobilePostAddress, form);
         Debug.Log("send the web request now. ts: " + Time.realtimeSinceStartup);
         yield return req.SendWebRequest();
@@ -117,7 +83,7 @@ public class DataManager : MonoBehaviour
         if (req.isHttpError || req.isNetworkError)
             Debug.Log(req.error);
         else
-            Debug.Log("Uploaded " + recordingPaths.Length + " audio files Successfully. TS: " + Time.realtimeSinceStartup);
+            Debug.Log("Uploaded audio files Successfully. TS: " + Time.realtimeSinceStartup);
 
         if (req.isDone)
         {
@@ -126,8 +92,27 @@ public class DataManager : MonoBehaviour
         }
         endCallback?.Invoke();
     }
-}
 
+    private static WWWForm AddAllRecordingsToForm()
+    {
+        // Get all files saved to disk this session.
+        // Includes all non-discarded recordings and the form.json file.
+        WWWForm form = new WWWForm();
+        string[] recordingPaths = Directory.GetFiles(SessionManager.sessionPath);
+        form.AddField("id", SessionManager.sessionId);
+
+        foreach (string filePath in recordingPaths)
+        {
+            File.OpenRead(filePath);
+            byte[] bytes = File.ReadAllBytes(filePath);
+            string fileName = Path.GetFileName(filePath);
+            form.AddBinaryData("files[]", bytes, fileName);
+
+            Debug.LogFormat("added file: {0} to form.", fileName);
+        }
+        return form;
+    }
+}
 
 public class SaveData
 {
@@ -143,7 +128,8 @@ public class FormData
     public int age;
     public void Print()
     {
-        Debug.LogFormat("Gender: {0}, Native lang: {1}, Contribution Lang: {2}, Prof.Level: {3}, Age: {4}", gender, nativeLanguage, contributionLanguage, proficiencyLevel, age);
+        Debug.LogFormat("Gender: {0}, Native lang: {1}, Contribution Lang: {2}, Prof.Level: {3}, Age: {4}", 
+            gender, nativeLanguage, contributionLanguage, proficiencyLevel, age);
     }
 }
 public class RecordingData
@@ -155,5 +141,5 @@ public class RecordingData
         this.title = title;
         this.audioData = audioData;
     }
-    // other various audio meta data required for analysis.
+    // add in other audio meta data required for analysis.
 }

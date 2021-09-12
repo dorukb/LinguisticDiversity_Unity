@@ -203,7 +203,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 291418212}
         m_MethodName: LoadMenuScene
         m_Mode: 1
         m_Arguments:
@@ -3034,12 +3034,12 @@ PrefabInstance:
     - target: {fileID: 3435193671653102610, guid: e416c53ddad316141ab2a5c7cc93728f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: -3.052124
       objectReference: {fileID: 0}
     - target: {fileID: 3435193671653102610, guid: e416c53ddad316141ab2a5c7cc93728f,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 72
+      value: 124
       objectReference: {fileID: 0}
     - target: {fileID: 3435193671653102610, guid: e416c53ddad316141ab2a5c7cc93728f,
         type: 3}
@@ -3080,6 +3080,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3435193671653102610, guid: e416c53ddad316141ab2a5c7cc93728f,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.6689711
+      objectReference: {fileID: 0}
+    - target: {fileID: 3435193671653102610, guid: e416c53ddad316141ab2a5c7cc93728f,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.6689711
+      objectReference: {fileID: 0}
+    - target: {fileID: 3435193671653102610, guid: e416c53ddad316141ab2a5c7cc93728f,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.6689711
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e416c53ddad316141ab2a5c7cc93728f, type: 3}

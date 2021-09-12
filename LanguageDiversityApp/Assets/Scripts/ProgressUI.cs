@@ -19,32 +19,36 @@ public class ProgressUI : MonoBehaviour
     private void Start()
     {
         var scene = SceneManager.GetActiveScene();
-        if (scene.name == SceneTransition.MobileFormSceneName 
+        if (   scene.name == SceneTransition.MobileFormSceneName 
             || scene.name == SceneTransition.WebFormSceneName)
         {
-            // Form scene setup
-            // info checked
-            infoElement.ToggleTick(true);
-            formElement.ToggleTick(false);
-            recordingElement.ToggleTick(false);
-
-            // first bar filled, second empty
-            barFirst.sprite = filledBarSprite;
-            barSecond.sprite = emptyBarSprite;
+            SetupFormSceneUI();
 
         }
         else if(scene.name == SceneTransition.MobileRecordingSceneName
-            || scene.name == SceneTransition.WebRecordingSceneName)
+             || scene.name == SceneTransition.WebRecordingSceneName)
         {
-            // Recording scene setup
-            // info & form checked
-            infoElement.ToggleTick(true);
-            formElement.ToggleTick(true);
-            recordingElement.ToggleTick(false);
-
-            // first & second bar filled
-            barFirst.sprite = filledBarSprite;
-            barSecond.sprite = filledBarSprite;
+            SetupRecordingSceneUI();
         }
+    }
+
+    private void SetupRecordingSceneUI()
+    {
+        infoElement.ToggleTick(true);
+        formElement.ToggleTick(true);
+        recordingElement.ToggleTick(false);
+
+        barFirst.sprite = filledBarSprite;
+        barSecond.sprite = filledBarSprite;
+    }
+
+    private void SetupFormSceneUI()
+    {
+        infoElement.ToggleTick(true);
+        formElement.ToggleTick(false);
+        recordingElement.ToggleTick(false);
+
+        barFirst.sprite = filledBarSprite;
+        barSecond.sprite = emptyBarSprite;
     }
 }

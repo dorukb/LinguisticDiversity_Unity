@@ -189,5 +189,10 @@ public class RecordingManager : MonoBehaviour
         );
     }
 
+    // Called by Start Again Button
+    public void LoadMenuScene()
+    {
+        SceneTransition.LoadMenuScene();
+    }
 
 }

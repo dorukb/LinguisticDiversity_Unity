@@ -2,11 +2,10 @@
 
 public class RecordAudio : MonoBehaviour
 {
-    //AudioClip recordedClip;
-    AudioSource audioSource;
-
     public int samplerate = 44100;
     public float frequency = 440;
+
+    private AudioSource audioSource;
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -24,7 +23,11 @@ public class RecordAudio : MonoBehaviour
         return myClip;
 #endif
     }
-
+    public void PlayRecording(AudioClip recording)
+    {
+        audioSource.clip = recording;
+        audioSource.Play();
+    }
     public void StopRecording()
     {
         Invoke("StopDelayed", 1f);
@@ -39,10 +42,5 @@ public class RecordAudio : MonoBehaviour
 #if !UNITY_WEBGL || UNITY_EDITOR
         Microphone.End("");
 #endif
-    }
-    public void PlayRecording(AudioClip recording)
-    {
-        audioSource.clip = recording;
-        audioSource.Play();
     }
 }

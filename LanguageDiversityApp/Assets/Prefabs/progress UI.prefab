@@ -71,8 +71,6 @@ MonoBehaviour:
   infoElement: {fileID: 105964799826660269}
   formElement: {fileID: 7483138769492521305}
   recordingElement: {fileID: 8982392806603688978}
-  formSceneName: FormWeb
-  recordingSceneName: RecordingWeb
 --- !u!1 &3435193672329921887
 GameObject:
   m_ObjectHideFlags: 0
