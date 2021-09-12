@@ -183,7 +183,7 @@ public class RecordingManager : MonoBehaviour
         DataManager.Instance.SendDataToServer(() =>
         {
             // TODO: show success message/screen then redirect to menu scene.
-            FindObjectOfType<SceneTransition>().LoadMenuScene();
+            SceneTransition.LoadMenuScene();
         }
         // TODO: Also handle failed case and give option to retry.
         );

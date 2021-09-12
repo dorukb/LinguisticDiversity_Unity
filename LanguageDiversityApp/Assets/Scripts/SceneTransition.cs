@@ -1,16 +1,15 @@
-﻿using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine.SceneManagement;
 
-public class SceneTransition : MonoBehaviour
+public static class SceneTransition
 {
-    public const string WebRecordingSceneName = "Web_Recording";
-    public const string WebFormSceneName = "Web_Form";
-    public const string WebMenuSceneName = "Web_Menu";
+    public static string WebRecordingSceneName = "Web_Recording";
+    public static string WebFormSceneName = "Web_Form";
+    public static string WebMenuSceneName = "Web_Menu";
 
-    public const string MobileRecordingSceneName = "Mobile_Recording";
-    public const string MobileFormSceneName = "Mobile_Form";
-    public const string MobileMenuSceneName = "Mobile_Menu";
-    public void LoadRecordingScene()
+    public static string MobileRecordingSceneName = "Mobile_Recording";
+    public static string MobileFormSceneName = "Mobile_Form";
+    public static string MobileMenuSceneName = "Mobile_Menu";
+    public static void LoadRecordingScene()
     {
 #if UNITY_WEBGL
         SceneManager.LoadScene(WebRecordingSceneName);
@@ -19,7 +18,7 @@ public class SceneTransition : MonoBehaviour
 #endif
     }
 
-    public void LoadFormScene()
+    public static void LoadFormScene()
     {
 #if UNITY_WEBGL
         SceneManager.LoadScene(WebFormSceneName);
@@ -28,7 +27,7 @@ public class SceneTransition : MonoBehaviour
 #endif
     }
 
-    public void LoadMenuScene()
+    public static void LoadMenuScene()
     {
 #if UNITY_WEBGL
         SceneManager.LoadScene(WebMenuSceneName);

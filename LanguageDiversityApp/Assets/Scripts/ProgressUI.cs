@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -16,34 +14,35 @@ public class ProgressUI : MonoBehaviour
     [SerializeField] ProgressUIElement formElement;
     [SerializeField] ProgressUIElement recordingElement;
 
-    [SerializeField] string formSceneName;
-    [SerializeField] string recordingSceneName;
-
-    // based on scene, do some visual changes on the UI elements
+    // based on scene, do some visual changes on the UI elements that signify progression
 
     private void Start()
     {
-        var scene  = SceneManager.GetActiveScene();
-        if(scene.name == formSceneName)
+        var scene = SceneManager.GetActiveScene();
+        if (scene.name == SceneTransition.MobileFormSceneName 
+            || scene.name == SceneTransition.WebFormSceneName)
         {
+            // Form scene setup
             // info checked
             infoElement.ToggleTick(true);
             formElement.ToggleTick(false);
             recordingElement.ToggleTick(false);
 
-            // first bar filled
+            // first bar filled, second empty
             barFirst.sprite = filledBarSprite;
             barSecond.sprite = emptyBarSprite;
 
         }
-        else if(scene.name == recordingSceneName)
+        else if(scene.name == SceneTransition.MobileRecordingSceneName
+            || scene.name == SceneTransition.WebRecordingSceneName)
         {
-            // info checked
+            // Recording scene setup
+            // info & form checked
             infoElement.ToggleTick(true);
             formElement.ToggleTick(true);
             recordingElement.ToggleTick(false);
 
-            // first bar filled
+            // first & second bar filled
             barFirst.sprite = filledBarSprite;
             barSecond.sprite = filledBarSprite;
         }

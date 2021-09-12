@@ -17,7 +17,7 @@ public class MenuManager : MonoBehaviour
     {
         if (checkbox.consentGiven)
         {
-             FindObjectOfType<SceneTransition>().LoadFormScene();
+            SceneTransition.LoadFormScene();
         }
         else
         {
